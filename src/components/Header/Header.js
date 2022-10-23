@@ -1,5 +1,5 @@
 import '../Link/Link.css';
-import '../Header/Header.css';
+import './Header.css';
 
 import { Switch, Route, Link } from 'react-router-dom';
 import headerLogo from '../../images/header-logo.svg';

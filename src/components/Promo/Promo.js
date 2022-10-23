@@ -1,4 +1,4 @@
-import '../Promo/Promo.css';
+import './Promo.css';
 import promoLogo from '../../images/promo-logo.svg';
 
 function Promo() {
