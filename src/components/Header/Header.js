@@ -1,8 +1,10 @@
+import { Switch, Route, Link } from "react-router-dom";
+
 import "../Link/Link.css";
 import "./Header.css";
-
-import { Switch, Route, Link } from "react-router-dom";
 import headerLogo from "../../images/header-logo.svg";
+import HeaderButtonsLogged from "../HeaderButtonsLogged/HeaderButtonsLogged";
+import HeaderButtonsMain from "../HeaderButtonsMain/HeaderButtonsMain";
 
 function Header() {
   return (
@@ -11,18 +13,20 @@ function Header() {
         <Link className="link" to="/">
           <img className="header__logo" src={headerLogo} alt="логотип" />
         </Link>
-        <div className="header__elements">
-          <Switch>
-            <Route exact path="/">
-              <Link className="header__signup link" to="/register">
-                Регистрация
-              </Link>
-              <Link className="header__signin link" to="/login">
-                Войти
-              </Link>
-            </Route>
-          </Switch>
-        </div>
+        <Switch>
+          <Route path="/movies">
+            <HeaderButtonsLogged />
+          </Route>
+          <Route path="/saved-movies">
+            <HeaderButtonsLogged />
+          </Route>
+          <Route path="/profile">
+            <HeaderButtonsLogged />
+          </Route>
+          <Route exact path="/">
+            <HeaderButtonsMain />
+          </Route>
+        </Switch>
       </div>
     </section>
   );

@@ -1,0 +1,56 @@
+.header__buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  color: #FFFFFF;
+}
+
+.header__buttons_logged {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.29;
+}
+
+.header__button {
+
+}
+
+.header__button_active{
+  font-weight: 500;
+}
+
+.header__button_movies {
+
+}
+
+.header__button_saved-movies {
+  margin: 0 70px 0 20px;
+}
+
+.header__button_profile {
+  display: flex;
+  align-items: center;
+
+  font-size: 13px;
+  line-height: 12px;
+}
+
+.header__button_profile-text {
+  margin: 0;
+}
+
+.header__pictogram-background {
+  margin-left: 7px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #313131;
+  border-radius: 50%;
+}
+
+.header__profile-pictogram {
+  
+}
