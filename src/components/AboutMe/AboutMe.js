@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './AboutMe.css'
+import '../Link/Link.css'
 import studentPhoto from '../../images/student-photo.png'
 
 function AboutMe() {
