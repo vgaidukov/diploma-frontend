@@ -1,21 +1,22 @@
 import "../Link/Link.css";
 import "./NavTab.css";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 
 function NavTab() {
   return (
-    <section className="nav-tab">
-      <Link className="nav-tab__link link" to="/login">
+    <nav className="nav-tab">
+      <Link className="nav-tab__link link" to="/#about-project">
         О проекте
       </Link>
-      <Link className="nav-tab__link link" to="/login">
+      <Link className="nav-tab__link link" to="/#techs">
         Технологии
       </Link>
-      <Link className="nav-tab__link link" to="/login">
+      <Link className="nav-tab__link link" to="/#about-me">
         Студент
       </Link>
-    </section>
+    </nav>
   );
 }
 
