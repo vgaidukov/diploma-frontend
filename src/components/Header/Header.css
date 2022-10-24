@@ -1,7 +1,8 @@
 .header {
     width: 100%;
     min-height: 74px;
-    background-color: #073042;
+    /* background-color: #073042; */
+    position: absolute;
     display: flex;
     justify-content: center;
 }
