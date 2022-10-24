@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./AboutMe.css";
 import "../Link/Link.css";
 import studentPhoto from "../../images/student-photo.png";
@@ -24,7 +23,14 @@ function AboutMe() {
               Контур». После того, как прошёл курс по веб-разработке, начал
               заниматься фриланс-заказами и ушёл с постоянной работы.
             </p>
-            <Link className="link student__link">Github</Link>
+            <a
+              className="link student__link"
+              href="https://github.com/vgaidukov"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Github
+            </a>
           </div>
           <img className="student__photo" src={studentPhoto} alt="Фото" />
         </div>

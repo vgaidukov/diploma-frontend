@@ -13,14 +13,8 @@ function Header() {
         </Link>
         <div className="header__elements">
           <Switch>
-            {/* <Route exact path='/login'>
-                        <Link className='header__link link' to='/register'>Регистрация</Link>
-                    </Route>
-                    <Route exact path='/register'>
-                        <Link className='header__link link' to='/login'>Вход</Link>
-                    </Route> */}
             <Route exact path="/">
-              <Link className="header__signup link" to="/login">
+              <Link className="header__signup link" to="/register">
                 Регистрация
               </Link>
               <Link className="header__signin link" to="/login">
