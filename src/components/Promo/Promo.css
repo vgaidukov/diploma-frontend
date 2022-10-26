@@ -1,20 +1,17 @@
 .promo {
+  padding-top: 74px;
   width: 100%;
   min-height: 524px;
   display: flex;
-  /* box-sizing: border-box; */
-  padding-top: 74px;
-  background-color: #073042;
-  /* position: relative; */
   justify-content: center;
+  background-color: #073042;
 }
 .promo-container {
+  padding-top: 184px;
+  box-sizing: border-box;
+  width: 100%;
   max-width: 1280px;
   display: flex;
-  /* width: 100%; */
-  /* min-height: 524px; */
-  box-sizing: border-box;
-  padding-top: 184px;
   position: relative;
   justify-content: center;
 }

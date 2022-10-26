@@ -1,8 +1,7 @@
+import { HashLink as Link } from "react-router-hash-link";
+
 import "../Link/Link.css";
 import "./NavTab.css";
-
-// import { Link } from "react-router-dom";
-import { HashLink as Link } from "react-router-hash-link";
 
 function NavTab() {
   return (

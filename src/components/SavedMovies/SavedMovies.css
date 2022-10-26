@@ -1,0 +1,25 @@
+.saved-movies {
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 70px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.saved-movies__inform {
+  margin: 30px auto;
+  padding: 0;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.11;
+
+  color: #8B8B8B;
+}
+
+.saved-movies__inform_hidden {
+  display: none;
+}
