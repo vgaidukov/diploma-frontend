@@ -5,9 +5,16 @@ import searchSubmitIcon from "../../images/search-submit-icon.svg";
 import Toggle from "../Toggle/Toggle";
 
 function SearchForm() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
+
   return (
     <div className="search">
-      <form className="search__form">
+      <form
+        className="search__form"
+        onSubmit={handleSubmit}
+      >
         <img className="search__icon" src={searchIcon} alt="Поле поиска" />
         <input
           className="search__input"
