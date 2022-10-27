@@ -2,6 +2,9 @@
   width: 100%;
   background-color:#202020;
   color: #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .page__container {
@@ -10,4 +13,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.page__container_not-logged {
+  max-width: 396px;
 }
