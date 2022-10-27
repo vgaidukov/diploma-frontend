@@ -9,20 +9,17 @@ import { Switch, Route } from "react-router-dom";
 function App() {
   return (
     <div className="page">
+      <Header />
       <Switch>
         <Route Route path="/movies">
-          <Header />
           <Movies />
         </Route>
         <Route Route path="/saved-movies">
-          <Header />
           <SavedMovies />
         </Route>
         <Route Route path="/profile">
-          <Header />
         </Route>
         <Route Route exact path="/">
-          <Header />
           <Main />
         </Route>
       </Switch>

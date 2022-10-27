@@ -14,17 +14,11 @@ function Header() {
           <img className="header__logo" src={headerLogo} alt="логотип" />
         </Link>
         <Switch>
-          <Route path="/movies">
-            <HeaderButtonsLogged />
-          </Route>
-          <Route path="/saved-movies">
-            <HeaderButtonsLogged />
-          </Route>
-          <Route path="/profile">
-            <HeaderButtonsLogged />
-          </Route>
           <Route exact path="/">
             <HeaderButtonsMain />
+          </Route>
+          <Route path="/">
+            <HeaderButtonsLogged />
           </Route>
         </Switch>
       </div>
