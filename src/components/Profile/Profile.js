@@ -25,15 +25,17 @@ function Profile() {
         <label className="profile__label">
           Имя
           <Input
+            className={`profile__input ${isEditMode && "profile__input_active"}`}
             placeholder={"Вадим"}
-            active={isEditMode}
+            disabled={isEditMode}
           />
         </label>
         <label className="profile__label">
           E-mail
           <Input
+            className={`profile__input ${isEditMode && "profile__input_active"}`}
             placeholder={"vgaidukov@gmail.com"}
-            active={isEditMode}
+            disabled={isEditMode}
           />
         </label>
         <button
