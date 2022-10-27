@@ -13,38 +13,56 @@ import { Switch, Route } from "react-router-dom";
 function App() {
   return (
     <div className="page">
-      <div className="page__container">
-        <Switch>
-          <Route Route path="/movies">
-            <Header>
-              <HeaderButtonsLogged />
-            </Header>
-            <Movies />
-          </Route>
-          <Route Route path="/saved-movies">
-            <Header>
-              <HeaderButtonsLogged />
-            </Header>
-            <SavedMovies />
-          </Route>
-          <Route Route path="/profile">
-            <Header>
-              <HeaderButtonsLogged />
-            </Header>
-            <Profile />
-          </Route>
-          <Route Route path="/signup">
-            <Register />
-          </Route>
-          <Route Route exact path="/">
+      <Switch>
+
+        <Route Route exact path="/">
+          <div className="page__container">
             <Header isMainPage={true}>
               <HeaderButtonsMain />
             </Header>
             <Main />
-          </Route>
-        </Switch>
-      </div>
-      <Footer isHidden={true} />
+          </div>
+          <Footer />
+        </Route>
+
+        <Route Route path="/signup">
+          <div className="page__container page__container_not-logged">
+            <Header />
+            <Register />
+          </div>
+        </Route>
+
+        <Route Route path="/login">
+          <div className="page__container page__container_not-logged">
+            <Header />
+            <Register />
+          </div>
+        </Route>
+
+        <Route Route path="/">
+          <div className="page__container">
+
+            <Header>
+              <HeaderButtonsLogged />
+            </Header>
+
+            <Route Route path="/movies">
+              <Movies />
+            </Route>
+
+            <Route Route path="/saved-movies">
+              <SavedMovies />
+            </Route>
+
+            <Route Route path="/profile">
+              <Profile />
+            </Route>
+
+          </div>
+          <Footer />
+        </Route>
+
+      </Switch>
     </div>
   );
 }
