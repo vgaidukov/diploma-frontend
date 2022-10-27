@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: .6;
+  opacity: .7;
 
   font-style: normal;
   font-weight: 400;
@@ -47,7 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .movie-card__image_less-then-three {

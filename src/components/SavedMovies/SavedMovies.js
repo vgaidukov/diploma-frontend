@@ -8,10 +8,10 @@ function SavedMovies() {
   return (
     <section className="saved-movies">
       <SearchForm />
-      <MoviesCardListEmpty>
+      {/* <MoviesCardListEmpty>
         <p className="saved-movies__inform">Здесь будут сохраненные фильмы</p>
       </MoviesCardListEmpty>
-      <Preloader />
+      <Preloader /> */}
       <MoviesCardList />
     </section>
   );

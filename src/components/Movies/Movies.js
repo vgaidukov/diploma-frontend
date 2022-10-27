@@ -8,10 +8,10 @@ function Movies() {
   return (
     <section className="movies">
       <SearchForm />
-      <MoviesCardListEmpty>
+      {/* <MoviesCardListEmpty>
         <p className="movies__inform">Здесь будут результаты поиска</p>
       </MoviesCardListEmpty>
-      <Preloader />
+      <Preloader /> */}
       <MoviesCardList />
     </section>
   );

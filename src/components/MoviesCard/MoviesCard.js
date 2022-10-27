@@ -7,7 +7,7 @@ function MoviesCard({ children, lessThenThree }) {
     <li className="movies-card">
       {children}
       <img
-        className={`"movie-card__image ${lessThenThree && "movie-card__image_less-then-three"}`}
+        className={`movie-card__image ${lessThenThree && "movie-card__image_less-then-three"}`}
         src={moviesCardImage}
         alt="Постер"
       />
