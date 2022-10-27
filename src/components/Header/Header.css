@@ -9,7 +9,7 @@
     background-color: #073042;
 }
 
-.header-container{
+.header__container {
     padding: 0 70px;
     box-sizing: border-box;
     width: 100%;
@@ -17,6 +17,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.header__container_without-padding{
+    padding: 0;
+    max-width: 100%;
 }
 
 .header__logo {

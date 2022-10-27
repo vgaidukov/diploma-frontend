@@ -27,14 +27,14 @@ function App() {
 
         <Route Route path="/signup">
           <div className="page__container page__container_not-logged">
-            <Header />
+            <Header withoutPadding={true} />
             <Register />
           </div>
         </Route>
 
         <Route Route path="/login">
           <div className="page__container page__container_not-logged">
-            <Header />
+            <Header className="header" />
             <Register />
           </div>
         </Route>
@@ -42,7 +42,7 @@ function App() {
         <Route Route path="/">
           <div className="page__container">
 
-            <Header>
+            <Header className="header">
               <HeaderButtonsLogged />
             </Header>
 
