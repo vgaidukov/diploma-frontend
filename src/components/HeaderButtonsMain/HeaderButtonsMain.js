@@ -6,7 +6,7 @@ import "./HeaderButtonsMain.css";
 function HeaderButtonsMain() {
   return (
     <div className="header__buttons header__buttons_main">
-      <Link className="header__button header__button_signup link" to="/register">
+      <Link className="header__button header__button_signup link" to="/signup">
         Регистрация
       </Link>
       <Link className="header__button header__button_signin link" to="/login">
