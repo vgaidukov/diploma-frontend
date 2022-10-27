@@ -1,8 +1,13 @@
 import "./Input.css";
 
-function Input() {
+function Input({ placeholder, active }) {
   return (
-    <div className="input">Input</div>
+    <input
+      className={`input ${active && "input_active"}`}
+      placeholder={placeholder}
+      type="text"
+      disabled={!active}
+    />
   );
 }
 

@@ -6,9 +6,9 @@ import headerLogo from "../../images/header-logo.svg";
 import HeaderButtonsLogged from "../HeaderButtonsLogged/HeaderButtonsLogged";
 import HeaderButtonsMain from "../HeaderButtonsMain/HeaderButtonsMain";
 
-function Header() {
+function Header({ mainPage }) {
   return (
-    <section className="header">
+    <section className={`header ${mainPage ? "header_main-page" : ""}`}>
       <div className="header-container">
         <Link className="link" to="/">
           <img className="header__logo" src={headerLogo} alt="логотип" />

@@ -1,0 +1,28 @@
+.input {
+  margin: 0 0 0 20px;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: 80%;
+  min-width: 50%;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1 1 auto;
+  background: none;
+  outline: 0 #4285F4 solid;
+  border: none;
+  border-radius: 9px;
+  transition: padding 300ms ease-out;
+  
+  text-align: right;
+  color: #fff;
+}
+
+.input::placeholder {
+  color: #fff;
+}
+
+.input_active {
+  outline-width: 1px;
+  padding-right: 5px;
+}

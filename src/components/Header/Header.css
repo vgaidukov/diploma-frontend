@@ -1,9 +1,12 @@
 .header {
     width: 100%;
     min-height: 74px;
-    position: absolute;
     display: flex;
     justify-content: center;
+}
+
+.header_main-page {
+    background-color: #073042;
 }
 
 .header-container{

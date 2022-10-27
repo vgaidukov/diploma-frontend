@@ -1,12 +1,10 @@
 import "./Form.css";
-import Input from "../Input/Input";
 
-function Form() {
+function Form({ children, className }) {
   return (
-    <div className="form">
-      Form
-      <Input />
-    </div>
+    <form className={`form ${className}`}>
+      {children}
+    </form>
   );
 }
 

@@ -1,0 +1,15 @@
+.form {
+  width: 100%;
+}
+
+.form_profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+}
