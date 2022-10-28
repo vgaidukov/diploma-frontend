@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import Header from "../Header/Header";
@@ -14,6 +14,7 @@ import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
 
 function App() {
+
   return (
     <div className="page">
       <Switch>
@@ -42,36 +43,42 @@ function App() {
           </div>
         </Route>
 
-        <Route Route exact path="/404">
-          <NotFound />
-        </Route>
-
-        <Route Route path="/">
+        <Route Route exact path="/movies">
           <div className="page__container">
-
-            <Header className="header">
+            <Header >
               <HeaderButtonsLogged />
             </Header>
-
-            <Route Route exact path="/movies">
-              <Movies />
-            </Route>
-
-            <Route Route exact path="/saved-movies">
-              <SavedMovies />
-            </Route>
-
-            <Route Route exact path="/profile">
-              <Profile />
-            </Route>
-
-            <Redirect to="/404" />
-
+            <Movies />
           </div>
           <Footer />
         </Route>
+
+        <Route Route exact path="/saved-movies">
+          <div className="page__container">
+            <Header>
+              <HeaderButtonsLogged />
+            </Header>
+            <SavedMovies />
+          </div>
+          <Footer />
+
+        </Route>
+        <Route Route exact path="/profile">
+          <div className="page__container">
+            <Header>
+              <HeaderButtonsLogged />
+            </Header>
+            <Profile />
+          </div>
+          <Footer />
+        </Route>
+
+        <Route Route path="/">
+          <NotFound />
+        </Route>
+
       </Switch>
-    </div>
+    </div >
   );
 }
 
