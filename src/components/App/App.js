@@ -36,7 +36,7 @@ function App() {
 
         <Route Route exact path="/login">
           <div className="page__container page__container_not-logged">
-            <Header className="header" />
+            <Header withoutPadding={true} />
             <Login />
           </div>
         </Route>
