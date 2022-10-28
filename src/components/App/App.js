@@ -1,3 +1,5 @@
+import { Switch, Route, Redirect } from "react-router-dom";
+
 import "./App.css";
 import Header from "../Header/Header";
 import HeaderButtonsLogged from "../HeaderButtonsLogged/HeaderButtonsLogged";
@@ -7,8 +9,8 @@ import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
+import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
-import { Switch, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -25,17 +27,17 @@ function App() {
           <Footer />
         </Route>
 
-        <Route Route path="/signup">
+        <Route Route exact path="/signup">
           <div className="page__container page__container_not-logged">
             <Header withoutPadding={true} />
             <Register />
           </div>
         </Route>
 
-        <Route Route path="/login">
+        <Route Route exact path="/login">
           <div className="page__container page__container_not-logged">
             <Header className="header" />
-            <Register />
+            <Login />
           </div>
         </Route>
 
@@ -58,6 +60,9 @@ function App() {
               <Profile />
             </Route>
 
+            <Route>
+              {false ? <Redirect to="/" /> : <Redirect to="/login" />}
+            </Route>
           </div>
           <Footer />
         </Route>
