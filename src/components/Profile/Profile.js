@@ -27,7 +27,7 @@ function Profile() {
           <Input
             className={`profile__input ${isEditMode && "profile__input_active"}`}
             placeholder={"Вадим"}
-            disabled={isEditMode}
+            disabled={!isEditMode}
           />
         </label>
         <label className="profile__label">
@@ -35,7 +35,7 @@ function Profile() {
           <Input
             className={`profile__input ${isEditMode && "profile__input_active"}`}
             placeholder={"vgaidukov@gmail.com"}
-            disabled={isEditMode}
+            disabled={!isEditMode}
           />
         </label>
         <button
