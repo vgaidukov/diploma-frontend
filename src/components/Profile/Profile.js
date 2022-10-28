@@ -17,7 +17,7 @@ function Profile() {
 
   return (
     <section className="profile">
-      <h2 className="profile__greeting">Привет, Вадим!</h2>
+      <h2 className="profile__title">Привет, Вадим!</h2>
       <Form
         className={"form_profile"}
         onSubmit={submitButtonHandler}
@@ -25,28 +25,30 @@ function Profile() {
         <label className="profile__label">
           Имя
           <Input
-            className={`profile__input ${isEditMode && "profile__input_active"}`}
+            className={`input_profile ${isEditMode && "input_profile_active"}`}
             placeholder={"Вадим"}
             disabled={!isEditMode}
+            type={"text"}
           />
         </label>
         <label className="profile__label">
           E-mail
           <Input
-            className={`profile__input ${isEditMode && "profile__input_active"}`}
+            className={`input_profile ${isEditMode && "input_profile_active"}`}
             placeholder={"vgaidukov@gmail.com"}
             disabled={!isEditMode}
+            type={"email"}
           />
         </label>
         <button
-          className={`button profile__button`}
+          className={`button profile__submit-button`}
           type="submit"
           onClick={submitButtonHandler}
         >
           {!isEditMode ? "Редактировать" : "Сохранить"}
         </button>
       </Form>
-      <Link className="link profile__exit" to="/login">Выйти из аккаунта</Link>
+      <Link className="link profile__exit-button" to="/login">Выйти из аккаунта</Link>
     </section >
   );
 }
