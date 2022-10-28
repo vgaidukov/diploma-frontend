@@ -11,6 +11,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
+import NotFound from "../NotFound/NotFound";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
           </div>
         </Route>
 
+        <Route Route exact path="/404">
+          <NotFound />
+        </Route>
+
         <Route Route path="/">
           <div className="page__container">
 
@@ -48,25 +53,23 @@ function App() {
               <HeaderButtonsLogged />
             </Header>
 
-            <Route Route path="/movies">
+            <Route Route exact path="/movies">
               <Movies />
             </Route>
 
-            <Route Route path="/saved-movies">
+            <Route Route exact path="/saved-movies">
               <SavedMovies />
             </Route>
 
-            <Route Route path="/profile">
+            <Route Route exact path="/profile">
               <Profile />
             </Route>
 
-            <Route>
-              {false ? <Redirect to="/" /> : <Redirect to="/login" />}
-            </Route>
+            <Redirect to="/404" />
+
           </div>
           <Footer />
         </Route>
-
       </Switch>
     </div>
   );
