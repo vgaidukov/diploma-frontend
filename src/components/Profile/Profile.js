@@ -5,6 +5,7 @@ import './Profile.css'
 import '../Link/Link.css'
 import '../Button/Button.css'
 import Form from '../Form/Form'
+import Label from '../Label/Label'
 import Input from '../Input/Input'
 
 function Profile() {
@@ -22,24 +23,24 @@ function Profile() {
         className={"form_profile"}
         onSubmit={submitButtonHandler}
       >
-        <label className="profile__label">
+        <Label className="profile">
           Имя
           <Input
-            className={`input_profile ${isEditMode && "input_profile_active"}`}
+            className={`profile ${isEditMode && "input_profile_active"}`}
             placeholder={"Вадим"}
             disabled={!isEditMode}
             type={"text"}
           />
-        </label>
-        <label className="profile__label">
+        </Label>
+        <Label className="profile">
           E-mail
           <Input
-            className={`input_profile ${isEditMode && "input_profile_active"}`}
+            className={`profile ${isEditMode && "input_profile_active"}`}
             placeholder={"vgaidukov@gmail.com"}
             disabled={!isEditMode}
             type={"email"}
           />
-        </label>
+        </Label>
         <button
           className={`button profile__submit-button`}
           type="submit"

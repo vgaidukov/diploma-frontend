@@ -17,7 +17,7 @@
   line-height: 29px;
 }
 
-.profile__label {
+/* .profile__label {
   padding: 10px 0;
   width: 100%;
   display: flex;
@@ -28,11 +28,10 @@
 
 .profile__label:last-of-type {
   border: none;
-}
+} */
 
 .profile__submit-button {
   margin-top: auto;
-  /* margin-bottom: 16px; */
   
   font-style: normal;
   font-weight: 400;

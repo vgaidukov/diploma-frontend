@@ -1,8 +1,8 @@
 import "./Label.css"
 
-function Label({ children }) {
+function Label({ children, className }) {
   return (
-    <label className="label">
+    <label className={`label label_${className}`}>
       {children}
     </label>
   );

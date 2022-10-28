@@ -29,14 +29,19 @@
   padding-right: 5px;
 }
 
-.input_register {
+.input_entrance {
   width: 100%;
   min-height: 32px;
   align-items: center;
   outline: none;
+  border-bottom: 1px #424242 solid;
   
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+}
+
+.input_entrance:focus {
+  border-color: #4285F4;
 }

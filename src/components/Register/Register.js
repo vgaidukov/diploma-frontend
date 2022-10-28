@@ -21,24 +21,24 @@ function Register() {
       submitButtonHandler={submitButtonHandler}
       linkTo="/login"
     >
-      <Label>
+      <Label className={"entrance"}>
         Имя
         <Input
-          className="input_register"
+          className="entrance"
           type="text"
         />
       </Label>
-      <Label>
+      <Label className={"entrance"}>
         E-mail
         <Input
-          className="input_register"
+          className="entrance"
           type="email"
         />
       </Label>
-      <Label>
+      <Label className={"entrance"}>
         Пароль
         <Input
-          className="input_register"
+          className="entrance"
           type="password"
         />
       </Label>

@@ -1,9 +1,14 @@
 import "./Input.css";
 
-function Input({ placeholder, className, disabled, type }) {
+function Input({
+  placeholder,
+  className,
+  disabled,
+  type,
+}) {
   return (
     <input
-      className={`input ${className}`}
+      className={`input input_${className}`}
       placeholder={placeholder}
       type={type}
       disabled={disabled}

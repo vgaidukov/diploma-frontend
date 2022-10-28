@@ -1,13 +1,26 @@
 .label {
-  margin-bottom: 24px;
   width: 100%;
   display: flex;
+}
+
+.label_entrance {
+  margin-bottom: 24px;
   flex-direction: column;
-  border-bottom: 1px #424242 solid;
 
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
   color: #8B8B8B;
+}
+
+.label_profile {
+  padding: 9px 0;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px #424242 solid;
+}
+
+.label_profile:last-of-type {
+  border: none;
 }

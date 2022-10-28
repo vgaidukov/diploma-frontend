@@ -21,17 +21,17 @@ function Login() {
       submitButtonHandler={submitButtonHandler}
       linkTo="/signup"
     >
-      <Label>
+      <Label className={"entrance"}>
         E-mail
         <Input
-          className="input_register"
+          className="entrance"
           type="email"
         />
       </Label>
-      <Label>
+      <Label className={"entrance"}>
         Пароль
         <Input
-          className="input_register"
+          className="entrance"
           type="password"
         />
       </Label>
