@@ -16,5 +16,7 @@
 }
 
 .page__container_not-logged {
+  padding-top: 52px;
+  box-sizing: border-box;
   max-width: 396px;
 }
