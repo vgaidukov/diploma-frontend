@@ -13,3 +13,11 @@
   font-size: 11px;
   line-height: 13px;
 }
+
+.form_register {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
