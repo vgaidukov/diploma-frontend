@@ -1,11 +1,15 @@
+import { useHistory } from "react-router-dom";
+
 import EntranceForm from '../EntranceForm/EntranceForm'
 import Label from '../Label/Label'
 import Input from '../Input/Input'
 
 function Register() {
+  const history = useHistory();
 
   const submitButtonHandler = (e) => {
     e.preventDefault();
+    history.push('/login')
   }
 
   return (
