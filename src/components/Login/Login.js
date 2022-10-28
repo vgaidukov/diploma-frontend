@@ -1,11 +1,15 @@
+import { useHistory } from "react-router-dom";
+
 import EntranceForm from '../EntranceForm/EntranceForm'
 import Label from '../Label/Label'
 import Input from '../Input/Input'
 
 function Login() {
+  const history = useHistory();
 
   const submitButtonHandler = (e) => {
     e.preventDefault();
+    history.push('/movies')
   }
 
   return (
