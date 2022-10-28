@@ -1,9 +1,5 @@
-import { Link } from 'react-router-dom';
-
-import "./Register.css"
-import '../Link/Link.css'
-import '../Button/Button.css'
-import Form from '../Form/Form'
+import EntranceForm from '../EntranceForm/EntranceForm'
+import Label from '../Label/Label'
 import Input from '../Input/Input'
 
 function Register() {
@@ -13,45 +9,36 @@ function Register() {
   }
 
   return (
-    <section className="register">
-      <h2 className="register__titile">Добро пожаловать!</h2>
-      <Form
-        className={"form_register"}
-        onSubmit={submitButtonHandler}
-      >
-        <label className="register__label">
-          Имя
-          <Input
-            className={"input_register"}
-            type={"text"}
-          />
-        </label>
-        <label className="register__label">
-          E-mail
-          <Input
-            className={"input_register"}
-            type={"email"}
-          />
-        </label>
-        <label className="register__label">
-          Пароль
-          <Input
-            className={"input_register"}
-            type={"password"}
-          />
-        </label>
-        <button
-          className={`button register__submit-button`}
-          type="submit"
-          onClick={submitButtonHandler}
-        >
-          Зарегистрироваться
-        </button>
-      </Form>
-      <p className="register__text">Уже зарегистрированы?
-        <Link className="link register__link-to-login" to='/login'>Войти</Link>
-      </p>
-    </section>
+    <EntranceForm
+      title="Добро пожаловать!"
+      submitButtonName="Зарегистрироваться"
+      text="Уже зарегистрированы?"
+      linkText="Войти"
+      submitButtonHandler={submitButtonHandler}
+      linkTo="/login"
+    >
+      <Label>
+        Имя
+        <Input
+          className="input_register"
+          type="text"
+        />
+      </Label>
+      <Label>
+        E-mail
+        <Input
+          className="input_register"
+          type="email"
+        />
+      </Label>
+      <Label>
+        Пароль
+        <Input
+          className="input_register"
+          type="password"
+        />
+      </Label>
+    </EntranceForm>
   );
 }
 
