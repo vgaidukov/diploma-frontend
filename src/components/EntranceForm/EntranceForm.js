@@ -19,7 +19,7 @@ function EntranceForm(
     <section className="entrance-form">
       <h2 className="entrance-form__titile">{title}</h2>
       <Form
-        className={"form_register"}
+        className="entrance"
         onSubmit={submitButtonHandler}
       >
         {children}
