@@ -31,7 +31,7 @@
 
 .input_entrance {
   width: 100%;
-  min-height: 32px;
+  min-height: 34px;
   align-items: center;
   outline: none;
   border-bottom: 1px #424242 solid;
@@ -45,3 +45,7 @@
 .input_entrance:focus {
   border-color: #4285F4;
 }
+.input_entrance:invalid {
+  color: #EE3465;
+}
+

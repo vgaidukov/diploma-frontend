@@ -1,0 +1,12 @@
+.input-error_entrance {
+  position: absolute;
+  top: 100%;
+  display: block;
+  margin-top: 6px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+
+  color: #EE3465;
+}

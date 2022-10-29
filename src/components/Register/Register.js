@@ -1,8 +1,9 @@
 import { useHistory } from "react-router-dom";
 
-import EntranceForm from '../EntranceForm/EntranceForm'
-import Label from '../Label/Label'
-import Input from '../Input/Input'
+import EntranceForm from '../EntranceForm/EntranceForm';
+import Label from '../Label/Label';
+import Input from '../Input/Input';
+import Span from '../Span/Span';
 
 function Register() {
   const history = useHistory();
@@ -27,6 +28,7 @@ function Register() {
           className="entrance"
           type="text"
         />
+        <Span message={""} />
       </Label>
       <Label className={"entrance"}>
         E-mail
@@ -34,13 +36,16 @@ function Register() {
           className="entrance"
           type="email"
         />
+        <Span message={""} />
       </Label>
       <Label className={"entrance"}>
         Пароль
         <Input
           className="entrance"
           type="password"
+          minLength="8"
         />
+        <Span message={""} />
       </Label>
     </EntranceForm>
   );

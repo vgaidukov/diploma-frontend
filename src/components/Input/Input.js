@@ -5,6 +5,7 @@ function Input({
   className,
   disabled,
   type,
+  minLength
 }) {
   return (
     <input
@@ -12,6 +13,7 @@ function Input({
       placeholder={placeholder}
       type={type}
       disabled={disabled}
+      minLength={minLength}
     />
   );
 }

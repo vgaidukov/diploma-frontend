@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import EntranceForm from '../EntranceForm/EntranceForm'
 import Label from '../Label/Label'
 import Input from '../Input/Input'
+import Span from '../Span/Span'
 
 function Login() {
   const history = useHistory();
@@ -27,6 +28,7 @@ function Login() {
           className="entrance"
           type="email"
         />
+        <Span />
       </Label>
       <Label className={"entrance"}>
         Пароль
@@ -34,6 +36,7 @@ function Login() {
           className="entrance"
           type="password"
         />
+        <Span />
       </Label>
     </EntranceForm>
   );
