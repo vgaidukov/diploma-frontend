@@ -20,7 +20,7 @@ function Profile() {
     <section className="profile">
       <h2 className="profile__title">Привет, Вадим!</h2>
       <Form
-        className={"form_profile"}
+        className={"profile"}
         onSubmit={submitButtonHandler}
       >
         <Label className="profile">
