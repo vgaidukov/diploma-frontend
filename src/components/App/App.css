@@ -13,10 +13,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .page__container_not-logged {
-  padding-top: 52px;
-  box-sizing: border-box;
   max-width: 396px;
 }

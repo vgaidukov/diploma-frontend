@@ -53,14 +53,15 @@ function MoviesCardList() {
             </MoviesCard>
             <MoviesCard lessThenThree={lessThenThree}>
             </MoviesCard>
-            <MoviesCard lessThenThree={lessThenThree}>
+
+            {/* <MoviesCard lessThenThree={lessThenThree}>
             </MoviesCard>
             <MoviesCard lessThenThree={lessThenThree}>
             </MoviesCard>
             <MoviesCard lessThenThree={lessThenThree}>
             </MoviesCard>
             <MoviesCard lessThenThree={lessThenThree}>
-            </MoviesCard>
+            </MoviesCard> */}
           </ul>
           <button className="button movies-cards__more" type="button">Ещё</button>
         </Route>

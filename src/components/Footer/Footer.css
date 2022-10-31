@@ -47,3 +47,9 @@
 .footer__link:last-child {
     margin-right: 0;
 }
+
+@media screen and (max-width: 768.98px) {
+    .footer__container {
+        padding: 79px 30px 20px;
+    }
+}

@@ -71,3 +71,14 @@
   font-size: 13px;
   line-height: 1.38;
 }
+
+@media screen and (max-width: 768.98px) {
+  .search__filter {
+    padding: 0 22px;
+  }
+
+  .search__form {
+    margin-bottom: 110px;
+  }
+
+}

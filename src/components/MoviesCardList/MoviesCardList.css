@@ -34,3 +34,13 @@
   line-height: 15px;
   color: #FFFFFF;
 }
+
+@media screen and (max-width: 768.98px) {
+  .movies-card-list {
+    row-gap: 45px;
+  }
+
+  .movies-cards__more {
+    margin-top: 62px;
+  }
+}

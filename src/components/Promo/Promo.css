@@ -1,4 +1,6 @@
 .promo {
+  padding-bottom: 40px;
+  box-sizing: border-box;
   width: 100%;
   min-height: 524px;
   display: flex;
@@ -6,13 +8,12 @@
   background-color: #073042;
 }
 .promo-container {
-  padding-top: 184px;
-  box-sizing: border-box;
   width: 100%;
   max-width: 1280px;
   display: flex;
   position: relative;
   justify-content: center;
+  align-items: center;
 }
 
 .promo__titile {
@@ -32,5 +33,11 @@
   width: 320px;
   height: 320px;
   position: absolute;
-  top: 82px;
+}
+
+@media screen and (max-width: 768.98px) {
+  .promo {
+    min-height: 784px;
+    padding-bottom: 17px;
+  }
 }

@@ -86,3 +86,9 @@
   line-height: .91;
   color: #8B8B8B;
 }
+
+@media screen and (max-width: 768.98px) {
+  .movie-card__lable {
+    margin: 25px 0 0;
+  }
+}

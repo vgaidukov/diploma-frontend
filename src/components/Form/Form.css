@@ -1,13 +1,12 @@
 .form {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .form_profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1;
-  
+  min-height: 315px;
+
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
@@ -15,9 +14,11 @@
 }
 
 .form_entrance {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 1;
+  min-height: 380px;
+}
+
+@media screen and (max-width: 768.98px) {
+  .form_profile {
+    min-height: 305px;
+  }
 }
