@@ -1,25 +1,23 @@
-.header__buttons {
+.header-main-buttons {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  color: #FFFFFF;
-}
 
-.header__buttons_main {
+  color: #FFFFFF;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
 }
 
-.header__button {
+.header-main-buttons__button {
 
 }
 
-.header__button_signup {
+.header-main-buttons__button_signup {
   margin-right: 30px;
 }
 
-.header__button_signin {
+.header-main-buttons__button_signin {
   box-sizing: border-box;
   padding: 8px 20px;
   background-color: #3DDC84;

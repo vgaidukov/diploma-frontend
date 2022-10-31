@@ -6,30 +6,30 @@ import profilePictogram from "../../images/profile-pictogram.svg";
 
 function HeaderButtonsLogged() {
   return (
-    <div className="header__buttons header__buttons_logged">
+    <div className="header-logged-buttons">
       <NavLink
-        className="header__button header__button_movies link"
-        activeClassName="header__button_active"
+        className="header-logged-buttons__button header-logged-buttons__button_movies link"
+        activeClassName="header-logged-buttons__button_active"
         to="/movies"
       >
         Фильмы
       </NavLink>
       <NavLink
-        className="header__button header__button_saved-movies link"
-        activeClassName="header__button_active"
+        className="header-logged-buttons__button header-logged-buttons__button_saved-movies link"
+        activeClassName="header-logged-buttons__button_active"
         to="/saved-movies"
       >
         Сохраненные фильмы
       </NavLink>
       <NavLink
-        className="header__button header__button_profile link"
-        activeClassName="header__button_active"
+        className="header-logged-buttons__button header-logged-buttons__button_profile link"
+        activeClassName="header-logged-buttons__button_active"
         to="/profile"
       >
-        <p className="header__button_profile-text">Аккаунт</p>
-        <div className="header__pictogram-background">
+        <p className="header-logged-buttons__profile-text">Аккаунт</p>
+        <div className="header-logged-buttons__pictogram-background">
           <img
-            className="header__profile-pictogram"
+            className="header-logged-buttons__profile-pictogram"
             src={profilePictogram}
             alt="Профиль"
           />
