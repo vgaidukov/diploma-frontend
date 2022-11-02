@@ -1,12 +1,17 @@
 .profile {
   width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.profile__container {
+  width: 100%;
   max-width: 410px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  flex-grow: 1;
 }
   
 .profile__title {
@@ -45,11 +50,34 @@
 }
 
 @media screen and (max-width: 768.98px) {
+  .profile__container {
+    padding: 0 0 35px;
+  }
+
   .profile__title {
     margin-bottom: 78px;
   }
+}
+
+@media screen and (max-width: 619.98px) {
+  .profile {
+    box-sizing: border-box;
+    align-items: flex-start;
+  }
+
+  .profile__container {
+    padding: 70px 30px 0;
+    box-sizing: border-box;
+    height: calc(100vh - 74px);
+  }
+
+  .profile__title {
+    margin-bottom: 63px;
+    font-size: 24px;
+    line-height: 29px;
+  }
 
   .profile__exit-button {
-    margin-bottom: 35px;
+    margin-bottom: 40px;
   }
 }

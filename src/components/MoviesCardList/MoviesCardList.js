@@ -8,7 +8,7 @@ import moviesCardMark from "../../images/movies-card-mark.svg";
 import moviesCardDelete from "../../images/movies-card-delete.svg";
 
 function MoviesCardList() {
-  const lessThenThree = true;
+  const lessThenThree = false;
   const lessThenThreeSaved = true;
 
   return (
@@ -40,7 +40,7 @@ function MoviesCardList() {
             </MoviesCard>
             <MoviesCard lessThenThree={lessThenThree}>
             </MoviesCard>
-            <MoviesCard lessThenThree={lessThenThree}>
+            {/* <MoviesCard lessThenThree={lessThenThree}>
               <button
                 type="button"
                 aria-label={false ? "Сохранить" : "Сохранено"}
@@ -52,7 +52,7 @@ function MoviesCardList() {
             <MoviesCard lessThenThree={lessThenThree}>
             </MoviesCard>
             <MoviesCard lessThenThree={lessThenThree}>
-            </MoviesCard>
+            </MoviesCard> */}
 
             {/* <MoviesCard lessThenThree={lessThenThree}>
             </MoviesCard>

@@ -18,38 +18,40 @@ function Profile() {
 
   return (
     <section className="profile">
-      <h2 className="profile__title">Привет, Вадим!</h2>
-      <Form
-        className={"profile"}
-        onSubmit={submitButtonHandler}
-      >
-        <Label className="profile">
-          Имя
-          <Input
-            className={`profile ${isEditMode && "input_profile_active"}`}
-            placeholder={"Вадим"}
-            disabled={!isEditMode}
-            type={"text"}
-          />
-        </Label>
-        <Label className="profile">
-          E-mail
-          <Input
-            className={`profile ${isEditMode && "input_profile_active"}`}
-            placeholder={"vgaidukov@gmail.com"}
-            disabled={!isEditMode}
-            type={"email"}
-          />
-        </Label>
-        <button
-          className={`button profile__submit-button`}
-          type="submit"
-          onClick={submitButtonHandler}
+      <div className="profile__container">
+        <h2 className="profile__title">Привет, Вадим!</h2>
+        <Form
+          className={"profile"}
+          onSubmit={submitButtonHandler}
         >
-          {!isEditMode ? "Редактировать" : "Сохранить"}
-        </button>
-      </Form>
-      <Link className="link profile__exit-button" to="/login">Выйти из аккаунта</Link>
+          <Label className="profile">
+            Имя
+            <Input
+              className={`profile ${isEditMode && "input_profile_active"}`}
+              placeholder={"Вадим"}
+              disabled={!isEditMode}
+              type={"text"}
+            />
+          </Label>
+          <Label className="profile">
+            E-mail
+            <Input
+              className={`profile ${isEditMode && "input_profile_active"}`}
+              placeholder={"vgaidukov@gmail.com"}
+              disabled={!isEditMode}
+              type={"email"}
+            />
+          </Label>
+          <button
+            className={`button profile__submit-button`}
+            type="submit"
+            onClick={submitButtonHandler}
+          >
+            {!isEditMode ? "Редактировать" : "Сохранить"}
+          </button>
+        </Form>
+        <Link className="link profile__exit-button" to="/login">Выйти из аккаунта</Link>
+      </div>
     </section >
   );
 }

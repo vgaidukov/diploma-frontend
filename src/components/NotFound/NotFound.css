@@ -38,8 +38,7 @@
 
   font-size: 14px;
   line-height: 17px;
-
-color: #4285F4;
+  color: #4285F4;
 }
 
 .not-found__button:hover {
@@ -49,5 +48,22 @@ color: #4285F4;
 @media screen and (max-width: 768.98px) {
   .not-found {
     padding: 220px 0;
+  }
+}
+
+@media screen and (max-width: 719.98px) {
+  .not-found {
+    padding: 58px 0 30px;
+  }
+
+  .not-found__status{
+    font-size: 80px;
+    line-height: 97px;
+  }
+  
+  .not-found__message {
+    padding: 14px 0;
+    font-size: 12px;
+    line-height: 15px;
   }
 }

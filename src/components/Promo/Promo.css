@@ -19,6 +19,7 @@
 .promo__titile {
   margin: 0;
   width: 730px;
+  max-width: 92%;
   min-height: 116px;
 
   font-style: normal;
@@ -39,5 +40,23 @@
   .promo {
     min-height: 784px;
     padding-bottom: 17px;
+  }
+}
+
+@media screen and (max-width: 619.98px) {
+  .promo {
+    min-height: 570px;
+    padding-bottom: 38px;
+  }
+
+  .promo__logo {
+    width: 248px;
+    height: 248px;
+    position: absolute;
+  }
+
+  .promo__titile {
+    font-size: 31px;
+    line-height: 39px;
   }
 }

@@ -15,15 +15,17 @@ function SearchForm() {
         className="search__form"
         onSubmit={handleSubmit}
       >
-        <img className="search__icon" src={searchIcon} alt="Поле поиска" />
-        <input
-          className="search__input"
-          type="text"
-          name="search"
-          placeholder="Фильм" />
-        <button className="button search__submit-button" type="submit">
-          <img className="search__submit-icon" src={searchSubmitIcon} alt="Кнопка поиска" />
-        </button>
+        <div className="search__line">
+          <img className="search__icon" src={searchIcon} alt="Поле поиска" />
+          <input
+            className="search__input"
+            type="text"
+            name="search"
+            placeholder="Фильм" />
+          <button className="button search__submit-button" type="submit">
+            <img className="search__submit-icon" src={searchSubmitIcon} alt="Кнопка поиска" />
+          </button>
+        </div>
         <div className="search__filter">
           <Toggle />
           <p className="search__toggle-lable">Короткометражки</p>

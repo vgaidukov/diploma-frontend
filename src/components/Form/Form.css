@@ -1,5 +1,6 @@
 .form {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -20,5 +21,12 @@
 @media screen and (max-width: 768.98px) {
   .form_profile {
     min-height: 305px;
+  }
+}
+
+@media screen and (max-width: 619.98px) {
+  .form {
+    min-height: 0;
+    flex-grow: 1;
   }
 }

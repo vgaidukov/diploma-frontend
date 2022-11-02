@@ -92,3 +92,14 @@
     margin: 25px 0 0;
   }
 }
+
+@media screen and (max-width: 619.98px) {
+  .movie-card__lable {
+    margin: 15px 0px 0;
+  }
+
+
+  .movie-card__image_less-then-three {
+    max-width: 100%;
+  }
+}

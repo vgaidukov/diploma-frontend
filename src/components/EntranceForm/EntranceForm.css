@@ -4,7 +4,7 @@
   flex-direction: column;
 }
 
-.entrance-form__titile {
+.entrance-form__title {
   margin: 22px 0 41px;
   padding: 0;
 }
@@ -44,7 +44,6 @@
 .entrance-form__text {
   margin: 16px 0;
   display: inline;
-  
 
   font-weight: 400;
   font-size: 14px;
@@ -61,4 +60,25 @@
   font-size: 14px;
   line-height: 17px;
   color: #4285F4;
+}
+
+@media screen and (max-width: 619.98px) {
+  .entrance-form {
+    height: calc(100vh - 74px - 54px);  
+    align-items: center;
+  }
+
+  .entrance-form__titile {
+    margin: 31px 0 80px;
+  }
+
+  .entrance-form__submit-button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .entrance-form__text, .entrance-form__link-to-login {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }
