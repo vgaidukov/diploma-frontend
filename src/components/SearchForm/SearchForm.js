@@ -22,7 +22,8 @@ function SearchForm() {
             type="text"
             name="search"
             placeholder="Фильм"
-            required />
+            required
+            autoComplete="off" />
           <button className="button search__submit-button" type="submit">
             <img className="search__submit-icon" src={searchSubmitIcon} alt="Кнопка поиска" />
           </button>
