@@ -39,6 +39,10 @@
   opacity: 1;
 }
 
+.movies-card__button_saved:hover {
+  opacity: .8;
+}
+
 .movies-card__button_delete {
   width: 21px;
   height: 21px;
