@@ -33,12 +33,21 @@
   flex-grow: 1;
   outline: none;
   border: none;
+  min-height: 34px;
 
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.11;
+  color: #fff;
+}
+
+.search__input::placeholder {
   color: #8B8B8B;
+}
+
+.search__input:focus {
+  border-bottom: 1px #4285F4 solid;
 }
 
 .search__submit-button {

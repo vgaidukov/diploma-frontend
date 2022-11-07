@@ -21,7 +21,8 @@ function SearchForm() {
             className="search__input"
             type="text"
             name="search"
-            placeholder="Фильм" />
+            placeholder="Фильм"
+            required />
           <button className="button search__submit-button" type="submit">
             <img className="search__submit-icon" src={searchSubmitIcon} alt="Кнопка поиска" />
           </button>
