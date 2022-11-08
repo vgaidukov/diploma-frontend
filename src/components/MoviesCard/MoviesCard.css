@@ -71,10 +71,6 @@
   height: 100%;
 }
 
-.movie-card__image_less-then-three {
-  max-width: 360px;
-}
-
 .movie-card__lable {
   margin: 14px 14px 0;
   display: flex;
