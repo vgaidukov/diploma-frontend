@@ -41,7 +41,7 @@
   }
 }
 
-  @media screen and (max-width: 768.98px) {
+@media screen and (max-width: 768.98px) {
   .movies-card-list {
     row-gap: 45px;
   }

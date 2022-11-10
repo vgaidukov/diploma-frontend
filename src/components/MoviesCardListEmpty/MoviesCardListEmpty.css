@@ -1,9 +1,13 @@
 .movies-cards-empty {
-  margin: 80px 0;
+  margin: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.movies-cards-empty_hidden {
+  display: none;
 }
 
 .movies-card-list-empty {
@@ -44,13 +48,13 @@
   opacity: .15;
 }
 
-@media screen and (max-width: 1023.98px) {
+@media screen and (max-width: 949.98px) {
   .movies-card-empty:nth-of-type(2) {
     margin-right: 0px;
   }
 }
 
-@media screen and (max-width: 599.98px) {
+@media screen and (max-width: 559.98px) {
   .movies-card-empty:nth-of-type(1) {
     margin-right: 0px;
   }

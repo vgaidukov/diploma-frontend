@@ -4,9 +4,10 @@ import searchIcon from "../../images/search-icon.svg";
 import searchSubmitIcon from "../../images/search-submit-icon.svg";
 import Toggle from "../Toggle/Toggle";
 
-function SearchForm() {
+function SearchForm({ searchMovies, handleFilter }) {
   const handleSubmit = (e) => {
     e.preventDefault();
+    searchMovies();
   }
 
   return (
@@ -22,14 +23,14 @@ function SearchForm() {
             type="text"
             name="search"
             placeholder="Фильм"
-            required
+            // required
             autoComplete="off" />
           <button className="button search__submit-button" type="submit">
             <img className="search__submit-icon" src={searchSubmitIcon} alt="Кнопка поиска" />
           </button>
         </div>
         <div className="search__filter">
-          <Toggle />
+          <Toggle handleFilter={handleFilter} />
           <p className="search__toggle-lable">Короткометражки</p>
         </div>
       </form>

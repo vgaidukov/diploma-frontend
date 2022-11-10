@@ -1,9 +1,9 @@
 import "../List/List.css";
 import "./MoviesCardListEmpty.css";
 
-function MoviesCardListEmpty({ children }) {
+function MoviesCardListEmpty({ isEmpty, children }) {
   return (
-    <div className="movies-cards-empty">
+    <div className={`movies-cards-empty ${!isEmpty ? "movies-cards-empty_hidden" : ""}`}>
       {children}
       <ul className="list movies-card-list-empty" >
         <li className="movies-card-empty">

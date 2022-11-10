@@ -5,10 +5,16 @@
 }
 
 .movies-card__button {
-  display: flex;
+  display: none;
   position: absolute;
   top: 14px;
   right: 14px;
+  opacity: 0;
+  z-index: 1;
+}
+
+.movies-card__button_hidden {
+  display: flex;
 }
 
 .movies-card__button_save {
@@ -16,7 +22,7 @@
   height: 21px;
   background-color: #313131;
   border-radius: 30px;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   opacity: .7;
@@ -33,7 +39,7 @@
   height: 21px;
   background-color: #EE3465;
   border-radius: 30px;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   opacity: 1;
