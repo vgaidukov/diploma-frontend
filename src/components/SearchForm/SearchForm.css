@@ -20,10 +20,29 @@
   align-items: center;
 }
 
-.search__icon {
+.search__icon-search {
   margin: 0 10px 0 19px;
   width: 34px;
   height: 34px;
+}
+
+.search__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px 0 19px;
+  width: 34px;
+  height: 34px;
+}
+
+.search__icon-remove {
+  width: 20px;
+  height: 20px;
+  transition: .2s ease-in-out;
+}
+
+.search__icon-remove:hover {
+  transform: scale(1.4);
 }
 
 .search__input {
@@ -110,7 +129,7 @@
   }
 
   .search__icon {
-    display: none;
+    /* display: none; */
   }
 
   .search__input {

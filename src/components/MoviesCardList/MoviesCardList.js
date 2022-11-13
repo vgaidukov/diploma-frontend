@@ -1,27 +1,27 @@
-import { Switch, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-
 import "./MoviesCardList.css";
 import "../List/List.css";
 import "../Button/Button.css";
 import "../Hidden/Hidden.css";
+
+import { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import moviesCardDelete from "../../images/movies-card-delete.svg";
 
 function MoviesCardList({
   movies,
   isFilterOn,
   isLoading,
-  setIsEmpty
+  setIsEmpty,
+  showAllList,
+  saveButton,
+  deleteSavedMovie
 }) {
-  const [cardsRows, setCardsRows] = useState(0);
-  const [initialCardsRows, setInitialCardsRows] = useState(3);
+  const [cardsRows, setCardsRows] = useState(1);
   const [isAllShown, setIsAllShown] = useState(false);
   const [lessThenThree, setLessThenThree] = useState(false);
   const [moviesShown, setMoviesShown] = useState([]);
   const [moviesFiltered, setMoviesFiltered] = useState([]);
-  const [cardsColumns, setCardsColumns] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
+  const [initialCards, setInitialCards] = useState(0);
 
   // ОБРАБОТЧИКИ СОБЫТИЙ
 
@@ -30,63 +30,59 @@ function MoviesCardList({
   }
 
   const handleMoreButton = () => {
-    setMoviesShown(moviesFiltered.slice(0, cardsColumns * cardsRows));
-    setCardsRows(cardsRows + initialCardsRows);
+    setCardsRows(cardsRows + 1);
   }
 
   // ОТРИСОВКА ЭЛЕМЕНТОВ СТРАНИЦЫ
 
-  // задать количество выводимых строк и колон
+  // задать количество выводимых карточек
   useEffect(() => {
     const windowWidth = window.innerWidth;
-
     switch (true) {
       case (windowWidth < 580):
-        setCardsColumns(1);
-        setCardsRows(5);
-        setInitialCardsRows(5);
+        setInitialCards(5);
         break;
       case (windowWidth < 995):
-        setCardsColumns(2);
-        setCardsRows(1);
-        setInitialCardsRows(1);
+        setInitialCards(2);
         break;
       default:
-        setCardsColumns(3);
-        setCardsRows(1);
-        setInitialCardsRows(1);
+        setInitialCards(3);
     }
-  }, [movies, windowWidth]);
+  }, [windowWidth]);
 
-  // фильтр фильмов
+  // задать массив отфильтрованных фильмов, случатель размера экрана
   useEffect(() => {
-    if (movies.length === 0) { return };
-
     setMoviesShown([]);
+    showAllList
+      ? setCardsRows(movies.length)
+      : setCardsRows(1)
     isFilterOn
       ? setMoviesFiltered(movies.filter((element) => element.duration <= 40))
       : setMoviesFiltered(movies);
 
     window.addEventListener("resize", getWindowWidth);
+
     return () => window.removeEventListener("resize", getWindowWidth);
   }, [movies, isFilterOn]);
 
-  // пустой список
+  // рендер выводимых фильмов
   useEffect(() => {
-    setMoviesShown(moviesFiltered.slice(0, cardsColumns * cardsRows));
+    if ((cardsRows === 1) || (moviesShown.length < (initialCards * cardsRows))) {
+      setMoviesShown(moviesFiltered.slice(0, initialCards * cardsRows));
+    }
     moviesFiltered.length === 0
       ? setIsEmpty(true)
       : setIsEmpty(false);
-  }, [moviesFiltered, cardsRows, cardsColumns]);
+  }, [moviesFiltered, cardsRows, initialCards]);
 
-  // контроль кнопки Еще
+  // отображение кнопки Еще
   useEffect(() => {
     moviesShown.length === moviesFiltered.length
       ? setIsAllShown(true)
       : setIsAllShown(false);
   }, [moviesShown]);
 
-  // контроль меньше трех карточек
+  // отображение меньше трех карточек
   useEffect(() => {
     moviesShown.length < 3
       ? setLessThenThree(true)
@@ -95,47 +91,21 @@ function MoviesCardList({
 
   return (
     <div className="movies-cards">
-      <Switch>
-        <Route Route exact path="/movies">
-          <ul className={`list movies-card-list ${lessThenThree && "movies-card-list_less-then-three"} ${isLoading && "hidden"}`}>
-            {
-              moviesShown.map((element) => (
-                <MoviesCard
-                  key={element.id}
-                  movie={element}
-                />
-              ))}
-          </ul>
-          <button
-            className={`button movies-cards__more ${(isAllShown || isLoading) && "hidden"}`}
-            type="button"
-            onClick={handleMoreButton}>Ещё</button>
-        </Route>
-        <Route Route exact path="/saved-movies">
-          <ul className={`"list movies-card-list ${isAllShown && "movies-card-list_less-then-three"}`}>
-            <MoviesCard>
-              <button
-                type="button"
-                aria-label="Удалить из сохраненных"
-                className="button movies-card__button movies-card__button_delete"
-              >
-                <img className="movies-card__delete" src={moviesCardDelete} alt="Отметка" />
-              </button>
-            </MoviesCard>
-            <MoviesCard>
-              <button
-                type="button"
-                aria-label="Удалить из сохраненных"
-                className="button movies-card__button movies-card__button_delete"
-              >
-                <img className="movies-card__delete" src={moviesCardDelete} alt="Отметка" />
-              </button>
-            </MoviesCard>
-          </ul>
-        </Route>
-      </Switch >
+      <ul className={`list movies-card-list ${lessThenThree && "movies-card-list_less-then-three"} ${isLoading && "hidden"}`}>
+        {moviesShown.map((element) => (
+          <MoviesCard
+            key={element.id || element._id}
+            movie={element}
+            saveButton={saveButton}
+            deleteSavedMovie={deleteSavedMovie}
+          />
+        ))}
+      </ul>
+      <button
+        className={`button movies-cards__more ${(isAllShown || isLoading) && "hidden"}`}
+        type="button"
+        onClick={handleMoreButton}>Ещё</button>
     </div >
-
   );
 }
 

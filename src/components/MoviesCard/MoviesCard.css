@@ -13,7 +13,7 @@
   z-index: 1;
 }
 
-.movies-card__button_hidden {
+.movies-card__button_visible {
   display: flex;
 }
 
@@ -22,7 +22,6 @@
   height: 21px;
   background-color: #313131;
   border-radius: 30px;
-  /* display: flex; */
   align-items: center;
   justify-content: center;
   opacity: .7;
@@ -54,7 +53,6 @@
   height: 21px;
   background-color: #313131;
   border-radius: 30px;
-  display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0.8;
