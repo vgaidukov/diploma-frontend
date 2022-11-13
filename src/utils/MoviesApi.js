@@ -1,9 +1,9 @@
-class Api {
+class MoviesApi {
   constructor(options) {
     this._baseUrl = options.baseUrl;
   }
 
-  getMoviesArray() {
+  getAllMovies() {
     return fetch(`${this._baseUrl}`, {
       method: 'GET',
       headers: {
@@ -22,8 +22,8 @@ class Api {
   }
 }
 
-const api = new Api({
+const moviesApi = new MoviesApi({
   baseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
 });
 
-export default api;
+export default moviesApi;
