@@ -9,9 +9,11 @@ function EntranceForm(
   { children,
     title,
     submitButtonName,
+    submitButtonNameOnLoading,
+    isLoading,
     text,
     linkText,
-    submitButtonHandler,
+    onSubmit,
     linkTo
   }
 ) {
@@ -20,15 +22,15 @@ function EntranceForm(
       <h2 className="entrance-form__titile">{title}</h2>
       <Form
         className="entrance"
-        onSubmit={submitButtonHandler}
+        onSubmit={onSubmit}
       >
         {children}
         <button
           className={`button entrance-form__submit-button`}
           type="submit"
-          onClick={submitButtonHandler}
+        // onClick={onSubmit}
         >
-          {submitButtonName}
+          {!isLoading ? submitButtonName : submitButtonNameOnLoading}
         </button>
       </Form>
       <p className="entrance-form__text">{text}

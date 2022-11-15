@@ -3,7 +3,7 @@ class MainApi {
     this._baseUrl = options.baseUrl;
   }
 
-  getInitialUserInfo() {
+  getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: {
@@ -23,7 +23,7 @@ class MainApi {
       },
       body: JSON.stringify({
         name: data.name,
-        about: data.about
+        email: data.email
       })
     })
       .then(res => this._checkServerResponse(res));
@@ -33,8 +33,7 @@ class MainApi {
     return fetch(`${this._baseUrl}/movies`, {
       method: 'GET',
       headers: {
-        // authorization: `Bearer ${localStorage.getItem('token')}`,
-        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzUyZmVhMTQxMzg2Njk5ZTEyMTBlMmEiLCJpYXQiOjE2NjgwOTY3OTIsImV4cCI6MTY2ODcwMTU5Mn0.2PDnHXzFFn9rmVv1tbSB4k6d-QurCzzx-zAvmJUL-Vc`,
+        authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -45,8 +44,7 @@ class MainApi {
     return fetch(`${this._baseUrl}/movies`, {
       method: 'POST',
       headers: {
-        // authorization: `Bearer ${localStorage.getItem('token')}`,
-        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzUyZmVhMTQxMzg2Njk5ZTEyMTBlMmEiLCJpYXQiOjE2NjgwOTY3OTIsImV4cCI6MTY2ODcwMTU5Mn0.2PDnHXzFFn9rmVv1tbSB4k6d-QurCzzx-zAvmJUL-Vc`,
+        authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -70,8 +68,7 @@ class MainApi {
     return fetch(`${this._baseUrl}/movies/${id}`, {
       method: 'DELETE',
       headers: {
-        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzUyZmVhMTQxMzg2Njk5ZTEyMTBlMmEiLCJpYXQiOjE2NjgwOTY3OTIsImV4cCI6MTY2ODcwMTU5Mn0.2PDnHXzFFn9rmVv1tbSB4k6d-QurCzzx-zAvmJUL-Vc`,
-        // authorization: `Bearer ${localStorage.getItem('token')}`,
+        authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -82,12 +79,13 @@ class MainApi {
     if (result.ok) {
       return result.json();
     }
-    return Promise.reject(result.status);
+    return Promise.reject(result);
   }
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.movies-vg.nomoredomains.icu',
+  // baseUrl: 'https://api.movies-vg.nomoredomains.icu',
+  baseUrl: 'http://localhost:3030',
 });
 
 export default mainApi;

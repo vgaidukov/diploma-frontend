@@ -15,47 +15,84 @@ function MoviesCardList({
   saveButton,
   deleteSavedMovie
 }) {
-  const [cardsRows, setCardsRows] = useState(1);
   const [isAllShown, setIsAllShown] = useState(false);
   const [lessThenThree, setLessThenThree] = useState(false);
   const [moviesShown, setMoviesShown] = useState([]);
   const [moviesFiltered, setMoviesFiltered] = useState([]);
-  const [windowWidth, setWindowWidth] = useState(0);
-  const [initialCards, setInitialCards] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [cardsToShow, setCardsToShow] = useState({});
 
-  // ОБРАБОТЧИКИ СОБЫТИЙ
-
+  // установить ширину экрана
   const getWindowWidth = () => {
-    setWindowWidth(window.innerWidth);
+    setTimeout(() => {
+      setWindowWidth(window.innerWidth);
+    }, 200);
   }
 
+  //добавить ряд карточек 
+  //при нажатии на кнопку Еще
   const handleMoreButton = () => {
-    setCardsRows(cardsRows + 1);
+    setCardsToShow({
+      ...cardsToShow,
+      current: cardsToShow.current + cardsToShow.add,
+    })
   }
 
-  // ОТРИСОВКА ЭЛЕМЕНТОВ СТРАНИЦЫ
+  // вычисление количества оборажаемых фильмов при изменении ширины
+  const setNumberToShow = (initial, add) => {
+    let number;
+
+    //проверяем количество уже показанных карточек
+    if (moviesShown.length > initial) {
+      // если больше начального значения
+      // проверяем кратность подгружаемым карточкам
+      ((moviesShown.length - initial) % add) === 0
+        // если кратно, выведем количество показанных карточек
+        ? number = moviesShown.length
+        // если не кратно, выведем количество показанных
+        // с дополнением до целого ряда
+        : number = initial + add * Math.ceil((moviesShown.length - initial) / add)
+    } else {
+      // если меньше начального значения
+      //выведем начальное значение
+      number = initial;
+    }
+
+    return number;
+  }
 
   // задать количество выводимых карточек
+  // в зависимости от ширины экрана
   useEffect(() => {
-    const windowWidth = window.innerWidth;
     switch (true) {
       case (windowWidth < 580):
-        setInitialCards(5);
+        setCardsToShow({
+          ...cardsToShow,
+          current: setNumberToShow(5, 2),
+          add: 2,
+        })
         break;
       case (windowWidth < 995):
-        setInitialCards(2);
+        setCardsToShow({
+          ...cardsToShow,
+          current: setNumberToShow(8, 2),
+          add: 2,
+        })
         break;
       default:
-        setInitialCards(3);
+        setCardsToShow({
+          ...cardsToShow,
+          current: setNumberToShow(12, 3),
+          add: 3,
+        })
     }
   }, [windowWidth]);
 
-  // задать массив отфильтрованных фильмов, случатель размера экрана
+  // задать массив отфильтрованных фильмов
+  // и случатель размера экрана
   useEffect(() => {
     setMoviesShown([]);
-    showAllList
-      ? setCardsRows(movies.length)
-      : setCardsRows(1)
+    showAllList && setCardsToShow({ current: movies.length })
     isFilterOn
       ? setMoviesFiltered(movies.filter((element) => element.duration <= 40))
       : setMoviesFiltered(movies);
@@ -67,23 +104,17 @@ function MoviesCardList({
 
   // рендер выводимых фильмов
   useEffect(() => {
-    if ((cardsRows === 1) || (moviesShown.length < (initialCards * cardsRows))) {
-      setMoviesShown(moviesFiltered.slice(0, initialCards * cardsRows));
-    }
+    setMoviesShown(moviesFiltered.slice(0, cardsToShow.current));
     moviesFiltered.length === 0
       ? setIsEmpty(true)
       : setIsEmpty(false);
-  }, [moviesFiltered, cardsRows, initialCards]);
+  }, [moviesFiltered, cardsToShow]);
 
-  // отображение кнопки Еще
+  // отображение кнопки Еще и меньше 3 карточек
   useEffect(() => {
     moviesShown.length === moviesFiltered.length
       ? setIsAllShown(true)
       : setIsAllShown(false);
-  }, [moviesShown]);
-
-  // отображение меньше трех карточек
-  useEffect(() => {
     moviesShown.length < 3
       ? setLessThenThree(true)
       : setLessThenThree(false);

@@ -1,42 +1,40 @@
 import "./SavedMovies.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { searchMovies } from "../../utils/SearchMovies";
 import { useForm } from "../../hooks/hooks";
-import mainApi from "../../utils/MainApi";
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCardListEmpty from "../MoviesCardListEmpty/MoviesCardListEmpty";
 
-function SavedMovies() {
+function SavedMovies({ isLoading }) {
   const [movies, setMovies] = useState([]);
-  const [moviesSaved, setMoviesSaved] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isFilterOn, setIsFilterOn] = useState(false);
   const [wasSearched, setWasSearched] = useState(false);
-  const { values, handleChange, setValues } = useForm({});
 
-  //сброс полей формы
+  const { values, handleChange, setValues } = useForm({});
+  const { savedMovies } = useContext(CurrentUserContext);
+
+  // сброс полей формы
   const resetForm = () => {
-    setValues({
-      request: ""
-    })
+    setValues({ request: "" })
   };
 
   // сброс поиска фильмов
   const resetToDefault = () => {
     setWasSearched(false);
     resetForm();
-    setMovies(moviesSaved);
+    setMovies(savedMovies);
     setIsFilterOn(false);
   }
 
   // удаление фильма из DOM
-  function deleteSavedMovie(id) {
-    setMovies(movies.filter((el) => el.id !== id));
+  const deleteSavedMovie = (id) => {
+    setMovies(movies.filter((el) => el._id !== id));
   }
 
   // управление переключателем короткометражек
@@ -45,48 +43,48 @@ function SavedMovies() {
     localStorage.setItem("filterSavedMovies", !isFilterOn);
   }
 
-  // управление нажатием кнопки Поиск
+  // управление нажатием на кнопку Поиск
   const handleSearchButton = () => {
     setWasSearched(true);
-    const moviesResult = searchMovies(movies, values.request);
+    const moviesResult = searchMovies(savedMovies, values.request);
     if (moviesResult.length > 0) {
+      setIsEmpty(false);
       setMovies(moviesResult);
+    } else {
+      setIsEmpty(true);
+      setMovies([]);
+    }
+  }
+
+  // если есть сохраненые фильмы,
+  // то добавить их в массив для рендеринга
+  const checkLength = () => {
+    if (savedMovies.length > 0) {
+      setMovies(savedMovies);
     } else {
       setMovies([]);
       setIsEmpty(true);
     }
   }
 
-  // рендер страницы
+  // сброс переключателя короткометражек
+  // проверить длину массива сохраненных фильмов,
+  // когда они будет загружены
   useEffect(() => {
     setIsFilterOn(false);
-    setIsEmpty(false);
-    setIsLoading(true);
-    mainApi
-      .getMovies()
-      .then((moviesArray) => {
-        setIsLoading(false);
-        setMoviesSaved(moviesArray);
-        if (moviesArray.length > 0) {
-          setMovies(moviesArray);
-        } else {
-          setMovies([]);
-          setIsEmpty(true);
-        }
-      })
-      .catch((err) => console.log(err))
-  }, [])
+    savedMovies && checkLength();
+  }, [isLoading, savedMovies])
 
   return (
     <section className="saved-movies">
       <SearchForm
         value={values.request}
-        isFilterOn={isFilterOn}
-        wasSearched={wasSearched}
-        handleSearchButton={handleSearchButton}
-        handleFilter={handleFilter}
-        resetToDefault={resetToDefault}
         onChange={handleChange}
+        handleSearchButton={handleSearchButton}
+        isFilterOn={isFilterOn}
+        handleFilter={handleFilter}
+        wasSearched={wasSearched}
+        resetToDefault={resetToDefault}
       />
       <Preloader isLoading={isLoading} />
       <MoviesCardListEmpty

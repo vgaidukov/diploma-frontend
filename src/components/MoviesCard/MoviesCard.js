@@ -1,8 +1,8 @@
 import "./MoviesCard.css";
 import "../Button/Button.css";
-import "../Hidden/Hidden.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 import moviesCardDelete from "../../images/movies-card-delete.svg";
 import moviesCardMark from "../../images/movies-card-mark.svg";
@@ -15,8 +15,7 @@ function MoviesCard({
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-
-  // УПРАВЛЕНИЕ СОБЫТИЯМИ
+  const { savedMovies, handleSavedMovies } = useContext(CurrentUserContext);
 
   const handleMouseOver = () => {
     setIsVisible(true);
@@ -29,39 +28,44 @@ function MoviesCard({
       window.open(movie.trailerLink);
     }
   }
+
+  // добавление фильма в Сохраненные
   const handleMovieSave = () => {
     mainApi
       .postMovie(movie)
       .then((mov) => {
-        console.log(mov);
+        savedMovies.push(mov);
         setIsSaved(true);
-        localStorage.setItem(mov.id, JSON.stringify(mov));
       })
       .catch(err => console.log(err));
   }
 
-  const handleMovieDelete = () => {
-    const movieToDelete = JSON.parse(localStorage.getItem(movie.id));
+  // получение _id сохраненного фильма 
+  // по нажатию на карточку без поля _id
+  const getCardId = () => {
+    const movieToDelete = savedMovies.find(el => el.id === movie.id);
+    return movieToDelete._id;
+  }
 
+  const handleMovieDelete = () => {
+    const cardId = getCardId();
     mainApi
-      .deleteMovie(movieToDelete._id)
-      .then((mov) => {
+      .deleteMovie(cardId)
+      .then(() => {
         setIsSaved(false);
-        localStorage.removeItem(movie.id)
-        if (!saveButton) {
-          deleteSavedMovie(movie.id)
-        }
+        handleSavedMovies(savedMovies.filter((el) => el._id !== cardId));
+        // удаление фильма из DOM странице Сохраненных фильмов
+        // без кнопки Сохранить
+        !saveButton && deleteSavedMovie(cardId);
       })
       .catch(err => console.log(err));
     setIsSaved(false)
   }
 
-  // РЕНДЕР
-  // кнопка сохранено/удаление, если фильм был сохранен
+  // отображение кнопки сохранено/удаление
   useEffect(() => {
-    if (localStorage.getItem(movie.id)) {
-      setIsSaved(true);
-    }
+    const savedMoviesIds = savedMovies.map(el => { return el.id });
+    (savedMoviesIds.includes(movie.id) ? true : false) && setIsSaved(true);
   }, [])
 
   return (

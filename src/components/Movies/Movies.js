@@ -1,34 +1,31 @@
 import "./Movies.css";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { searchMovies } from "../../utils/SearchMovies";
 import { useForm } from "../../hooks/hooks";
 import moviesApi from "../../utils/MoviesApi";
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCardListEmpty from "../MoviesCardListEmpty/MoviesCardListEmpty";
 
-function Movies() {
+function Movies({ preloader }) {
   const [movies, setMovies] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(preloader);
   const [isFilterOn, setIsFilterOn] = useState(false);
   const [wasSearched, setWasSearched] = useState(false);
   const { values, handleChange, setValues } = useForm({});
+  const { savedMovies } = useContext(CurrentUserContext);
 
   // установка и сброс полей формы
   const setForm = () => {
-    setValues({
-      request: localStorage.getItem("request")
-    })
+    setValues({ request: localStorage.getItem("request") })
   };
-
   const resetForm = () => {
-    setValues({
-      request: ""
-    })
+    setValues({ request: "" })
   };
 
   // сброс поиска фильмов
@@ -61,15 +58,21 @@ function Movies() {
           setIsEmpty(false);
           setMovies(moviesResult);
         } else {
-          setMovies([]);
           setIsEmpty(true);
+          setMovies([]);
         }
-        setIsLoading(false);
         localStorage.setItem("moviesResult", JSON.stringify(moviesResult));
         localStorage.setItem("request", values.request);
         localStorage.setItem("wasSearched", true);
       })
       .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
+  }
+
+
+  // пустая функция
+  const deleteSavedMovie = (id) => {
+    return
   }
 
   //рендер страницы с сохраненными состояниями 
@@ -78,20 +81,18 @@ function Movies() {
     localStorage.getItem("filterMovies") === "true"
       ? setIsFilterOn(true)
       : setIsFilterOn(false);
-    if (localStorage.getItem("moviesResult")) {
-      setMovies(JSON.parse(localStorage.getItem("moviesResult")))
-    }
+    localStorage.getItem("moviesResult") && setMovies(JSON.parse(localStorage.getItem("moviesResult")));
     setForm();
   }, []);
 
   return (
     <section className="movies">
       <SearchForm
-        isFilterOn={isFilterOn}
-        handleSearchButton={handleSearchButton}
-        handleFilter={handleFilter}
-        onChange={handleChange}
         value={values.request}
+        onChange={handleChange}
+        isFilterOn={isFilterOn}
+        handleFilter={handleFilter}
+        handleSearchButton={handleSearchButton}
         wasSearched={wasSearched}
         resetToDefault={resetToDefault}
       />
@@ -123,6 +124,7 @@ function Movies() {
         setIsEmpty={setIsEmpty}
         showAllList={false}
         saveButton={true}
+        deleteSavedMovie={deleteSavedMovie}
       >
       </MoviesCardList>
     </section>
