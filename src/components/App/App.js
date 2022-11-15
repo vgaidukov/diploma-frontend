@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../../utils/Auth';
 import mainApi from "../../utils/MainApi";
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import Header from "../Header/Header";
 import HeaderButtonsLogged from "../HeaderButtonsLogged/HeaderButtonsLogged";
@@ -114,7 +115,7 @@ function App() {
         if (res) {
           return setIsLoggedIn(true);
         }
-        return history.push('/');
+        // return history.push('/');
       })
       .catch((err) => console.log(err))
   }
@@ -122,8 +123,11 @@ function App() {
   // проверка токена и получение начальных данных
   useEffect(() => {
     const token = localStorage.getItem('token');
-    token && authorize(token);
-    getInitialData();
+    if (token) {
+      authorize(token)
+        .then(getInitialData())
+        .catch(err => console.log(err))
+    }
   }, [isLoggedIn]);
 
   return (
@@ -131,6 +135,39 @@ function App() {
       <div className="page">
 
         <Switch>
+          <ProtectedRoute exact path="/movies">
+            <div className="page__container">
+              <Header >
+                <HeaderButtonsLogged />
+              </Header>
+              <Movies isLoading={isLoading} />
+            </div>
+            <Footer />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/saved-movies">
+            <div className="page__container">
+              <Header>
+                <HeaderButtonsLogged />
+              </Header>
+              <SavedMovies isLoading={isLoading} />
+            </div>
+            <Footer />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/profile">
+            <div className="page__container">
+              <Header>
+                <HeaderButtonsLogged />
+              </Header>
+              <Profile
+                onEditProfile={onEditProfile}
+                onSignOut={onSignOut}
+                isLoading={isLoading}
+              />
+            </div>
+            <Footer />
+          </ProtectedRoute>
 
           <Route Route exact path="/">
             <div className="page__container">
@@ -160,40 +197,6 @@ function App() {
                 isLoading={isLoading}
               />
             </div>
-          </Route>
-
-          <Route Route exact path="/movies">
-            <div className="page__container">
-              <Header >
-                <HeaderButtonsLogged />
-              </Header>
-              <Movies isLoading={isLoading} />
-            </div>
-            <Footer />
-          </Route>
-
-          <Route Route exact path="/saved-movies">
-            <div className="page__container">
-              <Header>
-                <HeaderButtonsLogged />
-              </Header>
-              <SavedMovies isLoading={isLoading} />
-            </div>
-            <Footer />
-
-          </Route>
-          <Route Route exact path="/profile">
-            <div className="page__container">
-              <Header>
-                <HeaderButtonsLogged />
-              </Header>
-              <Profile
-                onEditProfile={onEditProfile}
-                onSignOut={onSignOut}
-                isLoading={isLoading}
-              />
-            </div>
-            <Footer />
           </Route>
 
           <Route Route path="/">
