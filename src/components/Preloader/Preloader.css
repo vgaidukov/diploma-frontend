@@ -49,11 +49,14 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #202020;
 }
 
 .preloader_visible {
     display: flex;
+}
+
+.preloader_fullsize {
+    background-color: #202020;
 }
 
 .preloader__container {
