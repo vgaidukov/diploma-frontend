@@ -9,8 +9,12 @@ function Input({
   value,
   onChange,
   minLength,
+  maxLength,
   disabled,
-  required
+  required,
+  // isValid,
+  autocomplete,
+  pattern
 }) {
 
   return (
@@ -23,8 +27,11 @@ function Input({
       value={value || ""}
       onChange={onChange}
       minLength={minLength}
+      maxLength={maxLength}
       disabled={disabled}
       required={required}
+      autoComplete={autocomplete}
+      pattern={pattern}
     />
   );
 }

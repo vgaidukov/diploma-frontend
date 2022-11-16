@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
-import { useForm } from '../../hooks/hooks';
+import { useForm } from '../../hooks/useForm';
+import { EMAIL_PATTERN } from '../../constants/constants';
 
 import EntranceForm from '../EntranceForm/EntranceForm';
 import Label from '../Label/Label';
@@ -8,22 +9,24 @@ import Span from '../Span/Span';
 
 function Register({
   onRegister,
-  isLoading
+  isLoading,
+  errorMessage,
+  handleErrorMessage
 }) {
   const history = useHistory();
 
-  const { values, handleChange, setValues } = useForm({});
+  const { values, handleChange, setValues, errors, isValid, resetForm } = useForm({});
   const name = values.name || '';
   const email = values.email || '';
   const password = values.password || '';
 
-  const resetForm = () => {
-    setValues({
-      email: '',
-      password: '',
-      name: ''
-    })
-  };
+  // const resetForm = () => {
+  //   setValues({
+  //     email: '',
+  //     password: '',
+  //     name: ''
+  //   })
+  // };
 
   const submitButtonHandler = (e) => {
     e.preventDefault();
@@ -34,10 +37,19 @@ function Register({
       })
       .catch((result) => {
         result.json()
-          .then((err) =>
-            (result.status && err.message)
-              ? console.log(result.status + ": " + err.message)
-              : console.log('Что-то пошло не так'));
+          .then((err) => {
+            if (result.status && err.message) {
+              handleErrorMessage(err.message)
+              console.log(result.status + ": " + err.message)
+            } else {
+              handleErrorMessage('Что-то пошло не так')
+              console.log('Что-то пошло не так')
+            }
+          }
+            // (result.status && err.message)
+            //   ? console.log(result.status + ": " + err.message)
+            //   : console.log('Что-то пошло не так')
+          );
       });
   }
 
@@ -48,13 +60,14 @@ function Register({
       submitButtonName="Зарегистрироваться"
       submitButtonNameOnLoading="Регистрация ..."
       onSubmit={submitButtonHandler}
-      email={email}
-      password={password}
+      isValid={isValid}
 
       text="Уже зарегистрированы?"
       linkText="Войти"
       linkTo="/login"
-    // submitButtonHandler={submitButtonHandler}
+
+      errorMessage={errorMessage}
+      handleErrorMessage={handleErrorMessage}
     >
       <Label className={"entrance"}>
         Имя
@@ -70,7 +83,7 @@ function Register({
           disabled={false}
           required={true}
         />
-        <Span message={""} />
+        <Span message={errors.name} />
       </Label>
       <Label className={"entrance"}>
         E-mail
@@ -85,11 +98,9 @@ function Register({
           minLength="0"
           disabled={false}
           required={true}
-
-        // className="entrance"
-        // type="email"
+          pattern={EMAIL_PATTERN}
         />
-        <Span message={""} />
+        <Span message={errors.email} />
       </Label>
       <Label className={"entrance"}>
         Пароль
@@ -101,15 +112,11 @@ function Register({
           placeholder=""
           value={values.password}
           onChange={handleChange}
-          minLength="4"
+          minLength="8"
           disabled={false}
           required={true}
-
-        // className="entrance"
-        // type="password"
-        // minLength="8"
         />
-        <Span message={""} />
+        <Span message={errors.password} />
       </Label>
     </EntranceForm>
   );

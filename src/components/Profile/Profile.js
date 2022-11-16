@@ -2,9 +2,11 @@ import '../Link/Link.css'
 import '../Button/Button.css'
 import './Profile.css'
 
-import { useState, useEffect, useContext } from 'react';
-import { useForm } from '../../hooks/hooks';
+import { useEffect, useContext } from 'react';
+import { useForm } from '../../hooks/useForm';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { EMAIL_PATTERN } from '../../constants/constants';
+import { NAME_PATTERN } from '../../constants/constants';
 
 import Form from '../Form/Form'
 import Label from '../Label/Label'
@@ -16,28 +18,23 @@ function Profile({
   isLoading,
   onSignOut
 }) {
-  const [isEditMode, setIsEditMode] = useState(false);
-  const { values, handleChange, setValues } = useForm({});
+  const { values, handleChange, setValues, isValid, setIsValid } = useForm({});
   const { currentUser } = useContext(CurrentUserContext);
 
   const submitButtonHandler = (e) => {
     e.preventDefault();
-    if (isEditMode) {
-      onEditProfile({
-        name: values.name,
-        email: values.email
+    onEditProfile({
+      name: values.name,
+      email: values.email
+    })
+      .then(() => setIsValid(false))
+      .catch((result) => {
+        result.json()
+          .then((err) =>
+            (result.status && err.message)
+              ? console.log(result.status + ": " + err.message)
+              : console.log('Что-то пошло не так'));
       })
-        .then(setIsEditMode(!isEditMode))
-        .catch((result) => {
-          result.json()
-            .then((err) =>
-              (result.status && err.message)
-                ? console.log(result.status + ": " + err.message)
-                : console.log('Что-то пошло не так'));
-        });
-    } else {
-      setIsEditMode(!isEditMode);
-    }
   }
 
   useEffect(() => {
@@ -53,22 +50,24 @@ function Profile({
       <div className={`profile__container ${isLoading && "profile__container_hidden"}`}>
         <h2 className="profile__title">Привет, {currentUser.name}!</h2>
         <Form
-          className={"profile"}
+          className={"profile form"}
           onSubmit={submitButtonHandler}
         >
-          <Label className="profile">
+          <Label className="profile ">
             Имя
             <Input
               id="name"
               name="name"
               type="text"
-              className={`profile ${isEditMode && "input_profile_active"}`}
-              placeholder={currentUser.name}
+              title="латиница, кириллица, пробел или дефис"
+              className={` input_profile`}
               value={values.name}
               onChange={handleChange}
-              minLength="0"
-              disabled={!isEditMode}
+              minLength="2"
+              maxLength="30"
               required={true}
+              autocomplete="off"
+              pattern={NAME_PATTERN}
             />
           </Label>
           <Label className="profile">
@@ -77,25 +76,26 @@ function Profile({
               id="email"
               name="email"
               type="email"
-              className={`profile ${isEditMode && "input_profile_active"}`}
-              placeholder={currentUser.email}
+              title="электронная почта"
+              className={`profile input_profile_active`}
               value={values.email}
               onChange={handleChange}
-              minLength="0"
-              disabled={!isEditMode}
               required={true}
+              autocomplete="off"
+              pattern={EMAIL_PATTERN}
+
             />
           </Label>
           <button
             className={`button profile__submit-button`}
             type="submit"
-          // onClick={submitButtonHandler}
+            disabled={!(isValid
+              && (currentUser.email !== values.email
+                || currentUser.name !== values.name))}
           >
-            {!isEditMode
+            {!isLoading
               ? "Редактировать"
-              : !isLoading
-                ? "Сохранить"
-                : "Сохранение..."
+              : "Сохранение..."
             }
           </button>
         </Form>

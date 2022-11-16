@@ -1,23 +1,31 @@
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useForm } from '../../hooks/hooks';
+import { useForm } from '../../hooks/useForm';
+import { EMAIL_PATTERN } from '../../constants/constants';
 
 import EntranceForm from '../EntranceForm/EntranceForm'
 import Label from '../Label/Label'
 import Input from '../Input/Input'
 import Span from '../Span/Span'
+// import { toHaveErrorMessage } from "@testing-library/jest-dom/dist/matchers";
 
-function Login({ onLogin, isLoading }) {
+function Login({
+  onLogin,
+  isLoading,
+  errorMessage,
+  handleErrorMessage
+}) {
   const history = useHistory();
-  const { values, handleChange, setValues } = useForm({});
+  const { values, handleChange, setValues, errors, isValid, resetForm } = useForm({});
   const email = values.email || '';
   const password = values.password || '';
 
-  const resetForm = () => {
-    setValues({
-      email: '',
-      password: ''
-    })
-  };
+  // const resetForm = () => {
+  //   setValues({
+  //     email: '',
+  //     password: ''
+  //   })
+  // };
 
   const submitButtonHandler = (e) => {
     e.preventDefault();
@@ -28,10 +36,15 @@ function Login({ onLogin, isLoading }) {
       })
       .catch((result) => {
         result.json()
-          .then((err) =>
-            (result.status && err.message)
-              ? console.log(result.status + ": " + err.message)
-              : console.log('Что-то пошло не так'));
+          .then((err) => {
+            if (result.status && err.message) {
+              handleErrorMessage(err.message)
+              console.log(result.status + ": " + err.message)
+            } else {
+              handleErrorMessage('Что-то пошло не так')
+              console.log('Что-то пошло не так')
+            }
+          });
       })
   }
 
@@ -42,12 +55,14 @@ function Login({ onLogin, isLoading }) {
       submitButtonName="Войти"
       submitButtonNameOnLoading="Вход ..."
       onSubmit={submitButtonHandler}
-      email={email}
-      password={password}
+      isValid={isValid}
 
       text="Еще не зарегистрированы?"
       linkText="Регистрация"
       linkTo="/signup"
+
+      errorMessage={errorMessage}
+      handleErrorMessage={handleErrorMessage}
     >
       <Label className={"entrance"}>
         E-mail
@@ -59,11 +74,11 @@ function Login({ onLogin, isLoading }) {
           placeholder=""
           value={values.email}
           onChange={handleChange}
-          minLength={3}
           disabled={false}
           required={true}
+          pattern={EMAIL_PATTERN}
         />
-        <Span />
+        <Span message={errors.email} />
       </Label>
       <Label className={"entrance"}>
         Пароль
@@ -75,11 +90,11 @@ function Login({ onLogin, isLoading }) {
           placeholder=""
           value={values.password}
           onChange={handleChange}
-          minLength="4"
+          minLength="8"
           disabled={false}
           required={true}
         />
-        <Span />
+        <Span message={errors.password} />
       </Label>
     </EntranceForm>
   );
