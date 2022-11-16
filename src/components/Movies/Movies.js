@@ -3,7 +3,7 @@ import "./Movies.css";
 import { useState, useEffect } from "react";
 import { searchMovies } from "../../utils/SearchMovies";
 import { useForm } from "../../hooks/useForm";
-import moviesApi from "../../utils/MoviesApi";
+// import moviesApi from "../../utils/MoviesApi";
 
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
@@ -13,7 +13,8 @@ import MoviesCardListEmpty from "../MoviesCardListEmpty/MoviesCardListEmpty";
 function Movies({
   preloader,
   handleMovieSave,
-  handleMovieDelete
+  handleMovieDelete,
+  getBeatMovies
 }) {
   const [movies, setMovies] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true);
@@ -48,28 +49,53 @@ function Movies({
     localStorage.setItem("filterMovies", !isFilterOn);
   }
 
+  // поиск фильмов
+  const handleSearchMovies = () => {
+    const allMovies = JSON.parse(localStorage.getItem("allMovies"));
+    const moviesResult = searchMovies(allMovies, values.request);
+    if (moviesResult.length > 0) {
+      setIsEmpty(false);
+      setMovies(moviesResult);
+    } else {
+      setIsEmpty(true);
+      setMovies([]);
+    }
+    localStorage.setItem("moviesResult", JSON.stringify(moviesResult));
+    localStorage.setItem("request", values.request);
+    localStorage.setItem("wasSearched", true);
+    setIsLoading(false);
+  }
+
+
   // управление нажатием кнопки Поиск
   const handleSearchButton = () => {
     setWasSearched(true);
     setIsLoading(true);
-    moviesApi
-      .getAllMovies()
-      .then((allMovies) => {
-        const moviesResult = searchMovies(allMovies, values.request);
-        if (moviesResult.length > 0) {
-          setIsEmpty(false);
-          setMovies(moviesResult);
-        } else {
-          setIsEmpty(true);
-          setMovies([]);
-        }
-        localStorage.setItem("moviesResult", JSON.stringify(moviesResult));
-        localStorage.setItem("request", values.request);
-        localStorage.setItem("wasSearched", true);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
+    if (!localStorage.getItem("allMovies")) {
+      getBeatMovies()
+        .then(() => handleSearchMovies())
+        .catch((err) => console.log(err));
+    } else {
+      handleSearchMovies();
+    }
   }
+
+  //       .then((allMovies) => {
+  //         const moviesResult = searchMovies(allMovies, values.request);
+  //         if (moviesResult.length > 0) {
+  //           setIsEmpty(false);
+  //           setMovies(moviesResult);
+  //         } else {
+  //           setIsEmpty(true);
+  //           setMovies([]);
+  //         }
+  //         localStorage.setItem("moviesResult", JSON.stringify(moviesResult));
+  //         localStorage.setItem("request", values.request);
+  //         localStorage.setItem("wasSearched", true);
+  //       })
+  //       .catch((err) => console.log(err))
+  //       .finally(() => setIsLoading(false));
+  // }
 
 
   // пустая функция

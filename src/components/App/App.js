@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../../utils/Auth';
 import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import Header from "../Header/Header";
@@ -34,6 +35,16 @@ function App() {
   // обработка ошибки от сервера в формах
   const handleErrorMessage = (message) => {
     return setErrorMessage(message);
+  }
+
+  // получение фильмов с BeatMovies
+  const getBeatMovies = () => {
+    return moviesApi
+      .getAllMovies()
+      .then((res) => {
+        localStorage.setItem("allMovies", JSON.stringify(res));
+      })
+      .catch(err => console.log(err));
   }
 
   // добавление фильма в Сохраненные
@@ -184,6 +195,7 @@ function App() {
                   isLoading={isLoading}
                   handleMovieSave={handleMovieSave}
                   handleMovieDelete={handleMovieDelete}
+                  getBeatMovies={getBeatMovies}
                 />
               </div>
               <Footer />
