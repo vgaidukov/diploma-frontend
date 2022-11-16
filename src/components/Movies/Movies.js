@@ -2,7 +2,7 @@ import "./Movies.css";
 
 import { useState, useEffect, useContext } from "react";
 import { searchMovies } from "../../utils/SearchMovies";
-import { useForm } from "../../hooks/hooks";
+import { useForm } from "../../hooks/useForm";
 import moviesApi from "../../utils/MoviesApi";
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 

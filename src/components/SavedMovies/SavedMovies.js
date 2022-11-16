@@ -2,7 +2,7 @@ import "./SavedMovies.css";
 
 import { useEffect, useState, useContext } from "react";
 import { searchMovies } from "../../utils/SearchMovies";
-import { useForm } from "../../hooks/hooks";
+import { useForm } from "../../hooks/useForm";
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 import SearchForm from "../SearchForm/SearchForm";
