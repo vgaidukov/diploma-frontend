@@ -27,8 +27,37 @@
   line-height: 29px;
 }
 
-.profile__submit-button {
+.profile__error-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
   margin-top: auto;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #EE3465;
+}
+.profile__error{
+  display: block;
+  opacity: 1;
+  animation: appear 4s forwards;
+}
+
+.profile__error:empty {
+  display: none;
+}
+
+@keyframes appear {
+  0% {opacity: 0;}
+  2% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+.profile__submit-button {
+  margin-top: 20px;
   
   font-style: normal;
   font-weight: 400;

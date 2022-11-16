@@ -15,10 +15,10 @@ function Register({
 }) {
   const history = useHistory();
 
-  const { values, handleChange, setValues, errors, isValid, resetForm } = useForm({});
-  const name = values.name || '';
-  const email = values.email || '';
-  const password = values.password || '';
+  const { values, handleChange, errors, isValid, resetForm } = useForm({});
+  const name = values.name || "";
+  const email = values.email || "";
+  const password = values.password || "";
 
   // const resetForm = () => {
   //   setValues({

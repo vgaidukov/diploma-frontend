@@ -36,16 +36,14 @@
   color: #EE3465;
 }
 .entrance-form__error{
-  /* display: block; */
+  display: block;
   opacity: 1;
   animation: appear 4s forwards;
-
-/* transition: opacity 350ms; */
 }
 
-/* .error:empty {
+.entrance-form__error:empty {
   display: none;
-} */
+}
 
 @keyframes appear {
   0% {opacity: 0;}
@@ -72,6 +70,7 @@
 .entrance-form__submit-button:hover {
   opacity: 0.7;
 }
+
 .entrance-form__text {
   margin: 16px 0;
   display: inline;

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from '../../hooks/useForm';
 import { EMAIL_PATTERN } from '../../constants/constants';
@@ -7,7 +6,6 @@ import EntranceForm from '../EntranceForm/EntranceForm'
 import Label from '../Label/Label'
 import Input from '../Input/Input'
 import Span from '../Span/Span'
-// import { toHaveErrorMessage } from "@testing-library/jest-dom/dist/matchers";
 
 function Login({
   onLogin,
@@ -16,23 +14,16 @@ function Login({
   handleErrorMessage
 }) {
   const history = useHistory();
-  const { values, handleChange, setValues, errors, isValid, resetForm } = useForm({});
-  const email = values.email || '';
-  const password = values.password || '';
-
-  // const resetForm = () => {
-  //   setValues({
-  //     email: '',
-  //     password: ''
-  //   })
-  // };
+  const { values, handleChange, errors, isValid, resetForm } = useForm({});
+  const email = values.email || "";
+  const password = values.password || "";
 
   const submitButtonHandler = (e) => {
     e.preventDefault();
     onLogin({ password, email })
       .then(() => {
         resetForm();
-        history.push('/movies');
+        history.push("/movies");
       })
       .catch((result) => {
         result.json()
@@ -41,8 +32,8 @@ function Login({
               handleErrorMessage(err.message)
               console.log(result.status + ": " + err.message)
             } else {
-              handleErrorMessage('Что-то пошло не так')
-              console.log('Что-то пошло не так')
+              handleErrorMessage("Что-то пошло не так")
+              console.log("Что-то пошло не так")
             }
           });
       })

@@ -31,13 +31,14 @@ function App() {
 
   const history = useHistory();
 
+  // обработка ошибки от сервера в формах
+  const handleErrorMessage = (message) => {
+    return setErrorMessage(message);
+  }
+
   // обновление списка сохраненных фильмов
   const handleSavedMovies = (array) => {
     return setSavedMovies(array);
-  }
-
-  const handleErrorMessage = (message) => {
-    return setErrorMessage(message);
   }
 
   // получение данных пользователя и сохраненных фильмов
@@ -67,6 +68,7 @@ function App() {
   //аутентификация
   const onLogin = ({ password, email }) => {
     setIsLoading(true);
+    setErrorMessage("");
     return auth
       .authorize(password, email)
       .then((res) => {
@@ -83,6 +85,7 @@ function App() {
   // регистрация
   const onRegister = ({ password, email, name }) => {
     setIsLoading(true);
+    setErrorMessage("");
     return auth
       .register(password, email, name)
       .then((res) => {
@@ -97,6 +100,7 @@ function App() {
   // редактирование профиля
   const onEditProfile = (newUserInfo) => {
     setIsLoading(true);
+    setErrorMessage("");
     return mainApi
       .patchUserInfo(newUserInfo)
       .then(updatedUserInfo => {
@@ -122,7 +126,6 @@ function App() {
       .validateToken(token)
       .then((res) => {
         if (res) {
-          console.log(res);
           return setIsLoggedIn(true);
         }
       })
@@ -197,6 +200,8 @@ function App() {
                   onEditProfile={onEditProfile}
                   onSignOut={onSignOut}
                   isLoading={isLoading}
+                  errorMessage={errorMessage}
+                  handleErrorMessage={handleErrorMessage}
                 />
               </div>
               <Footer />

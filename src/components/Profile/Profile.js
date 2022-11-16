@@ -16,7 +16,9 @@ import Preloader from '../Preloader/Preloader';
 function Profile({
   onEditProfile,
   isLoading,
-  onSignOut
+  onSignOut,
+  errorMessage,
+  handleErrorMessage
 }) {
   const { values, handleChange, setValues, isValid, setIsValid } = useForm({});
   const { currentUser } = useContext(CurrentUserContext);
@@ -43,6 +45,10 @@ function Profile({
       email: currentUser.email
     })
   }, [currentUser]);
+
+  useEffect(() => {
+    handleErrorMessage("");
+  }, []);
 
   return (
     <section className="profile">
@@ -86,6 +92,11 @@ function Profile({
 
             />
           </Label>
+          <div className="profile__error-container">
+            <p className="profile__error">
+              {errorMessage}
+            </p>
+          </div>
           <button
             className={`button profile__submit-button`}
             type="submit"
