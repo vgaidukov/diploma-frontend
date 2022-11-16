@@ -6,6 +6,12 @@
   transition: opacity 200ms ease-in-out;
 }
 
+
+.button:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
 .button:hover {
   opacity: 1;
 }
