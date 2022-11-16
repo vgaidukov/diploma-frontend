@@ -96,10 +96,12 @@ function App() {
 
   // редактирование профиля
   const onEditProfile = (newUserInfo) => {
+    setIsLoading(true);
     return mainApi
       .patchUserInfo(newUserInfo)
       .then(updatedUserInfo => {
         setCurrentUser(updatedUserInfo);
+        console.log(updatedUserInfo);
       })
       .catch((result) => {
         return Promise.reject(result)
@@ -164,10 +166,10 @@ function App() {
               </div>
               <Footer />
             </ProtectedRoute>
-            : !isChecked && <Preloader isLoading={isLoading} />
+            : !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
           }
 
-          {isLoggedIn &&
+          {isLoggedIn ?
             <ProtectedRoute
               exact path="/saved-movies"
               isLoggedIn={isLoggedIn}
@@ -180,8 +182,9 @@ function App() {
               </div>
               <Footer />
             </ProtectedRoute>
+            : !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
           }
-          {isLoggedIn &&
+          {isLoggedIn ?
             <ProtectedRoute
               exact path="/profile"
               isLoggedIn={isLoggedIn}
@@ -198,6 +201,7 @@ function App() {
               </div>
               <Footer />
             </ProtectedRoute>
+            : !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
           }
           <Route exact path="/">
             <div className="page__container">
