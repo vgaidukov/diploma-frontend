@@ -10,7 +10,11 @@ import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCardListEmpty from "../MoviesCardListEmpty/MoviesCardListEmpty";
 
-function SavedMovies({ isLoading }) {
+function SavedMovies({
+  isLoading,
+  handleMovieSave,
+  handleMovieDelete
+}) {
   const [movies, setMovies] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFilterOn, setIsFilterOn] = useState(false);
@@ -115,6 +119,8 @@ function SavedMovies({ isLoading }) {
         showAllList={true}
         saveButton={false}
         deleteSavedMovie={deleteSavedMovie}
+        handleMovieSave={handleMovieSave}
+        handleMovieDelete={handleMovieDelete}
       />
     </section >
   );

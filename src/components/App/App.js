@@ -36,9 +36,24 @@ function App() {
     return setErrorMessage(message);
   }
 
-  // обновление списка сохраненных фильмов
-  const handleSavedMovies = (array) => {
-    return setSavedMovies(array);
+  // добавление фильма в Сохраненные
+  const handleMovieSave = (movie) => {
+    return mainApi
+      .postMovie(movie)
+      .then((mov) => {
+        savedMovies.push(mov);
+      })
+      .catch(err => console.log(err));
+  }
+
+  // удаление фильма из Сохраненных
+  const handleMovieDelete = (cardId) => {
+    return mainApi
+      .deleteMovie(cardId)
+      .then(() => {
+        setSavedMovies(savedMovies.filter((el) => el._id !== cardId));
+      })
+      .catch(err => console.log(err));
   }
 
   // получение данных пользователя и сохраненных фильмов
@@ -151,7 +166,7 @@ function App() {
   }, [isLoggedIn]);
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, savedMovies, handleSavedMovies }}>
+    <CurrentUserContext.Provider value={{ currentUser, savedMovies }}>
       <div className="page">
 
         <Switch>
@@ -165,7 +180,11 @@ function App() {
                 <Header >
                   <HeaderButtonsLogged />
                 </Header>
-                <Movies isLoading={isLoading} />
+                <Movies
+                  isLoading={isLoading}
+                  handleMovieSave={handleMovieSave}
+                  handleMovieDelete={handleMovieDelete}
+                />
               </div>
               <Footer />
             </ProtectedRoute>
@@ -181,7 +200,11 @@ function App() {
                 <Header>
                   <HeaderButtonsLogged />
                 </Header>
-                <SavedMovies isLoading={isLoading} />
+                <SavedMovies
+                  isLoading={isLoading}
+                  handleMovieSave={handleMovieSave}
+                  handleMovieDelete={handleMovieDelete}
+                />
               </div>
               <Footer />
             </ProtectedRoute>

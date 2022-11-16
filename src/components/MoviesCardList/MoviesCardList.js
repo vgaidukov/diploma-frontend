@@ -13,7 +13,9 @@ function MoviesCardList({
   setIsEmpty,
   showAllList,
   saveButton,
-  deleteSavedMovie
+  deleteSavedMovie,
+  handleMovieSave,
+  handleMovieDelete
 }) {
   const [isAllShown, setIsAllShown] = useState(false);
   const [lessThenThree, setLessThenThree] = useState(false);
@@ -129,6 +131,8 @@ function MoviesCardList({
             movie={element}
             saveButton={saveButton}
             deleteSavedMovie={deleteSavedMovie}
+            handleMovieSave={handleMovieSave}
+            handleMovieDelete={handleMovieDelete}
           />
         ))}
       </ul>

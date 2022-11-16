@@ -6,16 +6,17 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 import moviesCardDelete from "../../images/movies-card-delete.svg";
 import moviesCardMark from "../../images/movies-card-mark.svg";
-import mainApi from "../../utils/MainApi";
 
 function MoviesCard({
   movie,
   saveButton,
   deleteSavedMovie,
+  handleMovieSave,
+  handleMovieDelete
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const { savedMovies, handleSavedMovies } = useContext(CurrentUserContext);
+  const { savedMovies } = useContext(CurrentUserContext);
 
   const handleMouseOver = () => {
     setIsVisible(true);
@@ -23,19 +24,18 @@ function MoviesCard({
   const handleMouseOut = () => {
     setIsVisible(false);
   }
+
   const handleClick = (e) => {
     if (e.target.className === "movie-card__image") {
       window.open(movie.trailerLink);
     }
   }
 
-  // добавление фильма в Сохраненные
-  const handleMovieSave = () => {
-    mainApi
-      .postMovie(movie)
-      .then((mov) => {
-        savedMovies.push(mov);
-        setIsSaved(true);
+  // обработка кнопки Сохранить
+  const handleSaveButton = () => {
+    handleMovieSave(movie)
+      .then(() => {
+        setIsSaved(true)
       })
       .catch(err => console.log(err));
   }
@@ -47,13 +47,13 @@ function MoviesCard({
     return movieToDelete._id;
   }
 
-  const handleMovieDelete = () => {
+  // обработка кнопки Удалить
+  const handleDeleteButton = () => {
     const cardId = getCardId();
-    mainApi
-      .deleteMovie(cardId)
+
+    handleMovieDelete(cardId)
       .then(() => {
         setIsSaved(false);
-        handleSavedMovies(savedMovies.filter((el) => el._id !== cardId));
         // удаление фильма из DOM странице Сохраненных фильмов
         // без кнопки Сохранить
         !saveButton && deleteSavedMovie(cardId);
@@ -66,7 +66,7 @@ function MoviesCard({
   useEffect(() => {
     const savedMoviesIds = savedMovies.map(el => { return el.id });
     (savedMoviesIds.includes(movie.id) ? true : false) && setIsSaved(true);
-  }, [])
+  }, [savedMovies])
 
   return (
     <li
@@ -80,7 +80,7 @@ function MoviesCard({
         aria-label={"Сохранить"}
         className={`button movies-card__button movies-card__button_save 
         ${(saveButton && isVisible && !isSaved) && "movies-card__button_visible"}`}
-        onClick={handleMovieSave}
+        onClick={handleSaveButton}
       >
         Сохранить
       </button>
@@ -89,7 +89,7 @@ function MoviesCard({
         aria-label="Удалить"
         className={`button movies-card__button movies-card__button_${(saveButton) ? "saved" : "delete"} 
         ${((saveButton && isSaved) || (!saveButton && isVisible)) && "movies-card__button_visible"}`}
-        onClick={handleMovieDelete}
+        onClick={handleDeleteButton}
       >
         {saveButton
           ? <img className="movies-card__mark" src={moviesCardMark} alt="Отметка" />

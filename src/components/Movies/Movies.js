@@ -1,24 +1,26 @@
 import "./Movies.css";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { searchMovies } from "../../utils/SearchMovies";
 import { useForm } from "../../hooks/useForm";
 import moviesApi from "../../utils/MoviesApi";
-import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesCardListEmpty from "../MoviesCardListEmpty/MoviesCardListEmpty";
 
-function Movies({ preloader }) {
+function Movies({
+  preloader,
+  handleMovieSave,
+  handleMovieDelete
+}) {
   const [movies, setMovies] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true);
   const [isLoading, setIsLoading] = useState(preloader);
   const [isFilterOn, setIsFilterOn] = useState(false);
   const [wasSearched, setWasSearched] = useState(false);
   const { values, handleChange, setValues } = useForm({});
-  const { savedMovies } = useContext(CurrentUserContext);
 
   // установка и сброс полей формы
   const setForm = () => {
@@ -125,6 +127,8 @@ function Movies({ preloader }) {
         showAllList={false}
         saveButton={true}
         deleteSavedMovie={deleteSavedMovie}
+        handleMovieSave={handleMovieSave}
+        handleMovieDelete={handleMovieDelete}
       >
       </MoviesCardList>
     </section>
