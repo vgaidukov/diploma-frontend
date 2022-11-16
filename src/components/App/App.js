@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../../utils/Auth';
@@ -18,19 +18,26 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
+import Preloader from "../Preloader/Preloader";
 
 function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
 
   // обновление списка сохраненных фильмов
   const handleSavedMovies = (array) => {
     return setSavedMovies(array);
+  }
+
+  const handleErrorMessage = (message) => {
+    return setErrorMessage(message);
   }
 
   // получение данных пользователя и сохраненных фильмов
@@ -113,20 +120,28 @@ function App() {
       .validateToken(token)
       .then((res) => {
         if (res) {
+          console.log(res);
           return setIsLoggedIn(true);
         }
-        // return history.push('/');
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   // проверка токена и получение начальных данных
   useEffect(() => {
+    setIsLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
       authorize(token)
         .then(getInitialData())
         .catch(err => console.log(err))
+        .finally(() => {
+          setIsLoading(false);
+          setIsChecked(true);
+        });
+    } else {
+      setIsLoading(false);
+      setIsChecked(true);
     }
   }, [isLoggedIn]);
 
@@ -135,41 +150,56 @@ function App() {
       <div className="page">
 
         <Switch>
-          <ProtectedRoute exact path="/movies">
-            <div className="page__container">
-              <Header >
-                <HeaderButtonsLogged />
-              </Header>
-              <Movies isLoading={isLoading} />
-            </div>
-            <Footer />
-          </ProtectedRoute>
 
-          <ProtectedRoute exact path="/saved-movies">
-            <div className="page__container">
-              <Header>
-                <HeaderButtonsLogged />
-              </Header>
-              <SavedMovies isLoading={isLoading} />
-            </div>
-            <Footer />
-          </ProtectedRoute>
+          {isLoggedIn ?
+            <ProtectedRoute
+              exact path="/movies"
+              isLoggedIn={isLoggedIn}
+            >
+              <div className="page__container">
+                <Header >
+                  <HeaderButtonsLogged />
+                </Header>
+                <Movies isLoading={isLoading} />
+              </div>
+              <Footer />
+            </ProtectedRoute>
+            : !isChecked && <Preloader isLoading={isLoading} />
+          }
 
-          <ProtectedRoute exact path="/profile">
-            <div className="page__container">
-              <Header>
-                <HeaderButtonsLogged />
-              </Header>
-              <Profile
-                onEditProfile={onEditProfile}
-                onSignOut={onSignOut}
-                isLoading={isLoading}
-              />
-            </div>
-            <Footer />
-          </ProtectedRoute>
-
-          <Route Route exact path="/">
+          {isLoggedIn &&
+            <ProtectedRoute
+              exact path="/saved-movies"
+              isLoggedIn={isLoggedIn}
+            >
+              <div className="page__container">
+                <Header>
+                  <HeaderButtonsLogged />
+                </Header>
+                <SavedMovies isLoading={isLoading} />
+              </div>
+              <Footer />
+            </ProtectedRoute>
+          }
+          {isLoggedIn &&
+            <ProtectedRoute
+              exact path="/profile"
+              isLoggedIn={isLoggedIn}
+            >
+              <div className="page__container">
+                <Header>
+                  <HeaderButtonsLogged />
+                </Header>
+                <Profile
+                  onEditProfile={onEditProfile}
+                  onSignOut={onSignOut}
+                  isLoading={isLoading}
+                />
+              </div>
+              <Footer />
+            </ProtectedRoute>
+          }
+          <Route exact path="/">
             <div className="page__container">
               <Header isMainPage={true}>
                 {isLoggedIn ? <HeaderButtonsLogged /> : <HeaderButtonsMain />}
@@ -179,33 +209,47 @@ function App() {
             <Footer />
           </Route>
 
-          <Route Route exact path="/signup">
-            <div className="page__container page__container_not-logged">
-              <Header withoutPadding={true} />
-              <Register
-                onRegister={onRegister}
-                isLoading={isLoading}
-              />
-            </div>
+          <Route exact path="/signup">
+            {isLoggedIn
+              ?
+              <Redirect to="/movies" />
+              :
+              <div className="page__container page__container_not-logged">
+                <Header withoutPadding={true} />
+                <Register
+                  onRegister={onRegister}
+                  isLoading={isLoading}
+                  errorMessage={errorMessage}
+                  handleErrorMessage={handleErrorMessage}
+                />
+              </div>
+            }
           </Route>
 
-          <Route Route exact path="/login">
-            <div className="page__container page__container_not-logged">
-              <Header withoutPadding={true} />
-              <Login
-                onLogin={onLogin}
-                isLoading={isLoading}
-              />
-            </div>
+          < Route exact path="/login">
+            {isLoggedIn
+              ?
+              <Redirect to="/movies" />
+              :
+              <div className="page__container page__container_not-logged">
+                <Header withoutPadding={true} />
+                <Login
+                  onLogin={onLogin}
+                  isLoading={isLoading}
+                  errorMessage={errorMessage}
+                  handleErrorMessage={handleErrorMessage}
+                />
+              </div>
+            }
           </Route>
 
-          <Route Route path="/">
+          <Route path="/">
             <NotFound />
           </Route>
 
         </Switch>
       </div>
-    </CurrentUserContext.Provider>
+    </CurrentUserContext.Provider >
 
   );
 }
