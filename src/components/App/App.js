@@ -287,8 +287,13 @@ function App() {
             }
           </Route>
 
-          <Route path="/">
-            <NotFound />
+          <Route path="/*">
+            {!isLoggedIn
+              ?
+              <Redirect to="/" />
+              :
+              <NotFound />
+            }
           </Route>
 
         </Switch>
