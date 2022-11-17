@@ -43,8 +43,18 @@ function App() {
       .getAllMovies()
       .then((res) => {
         localStorage.setItem("allMovies", JSON.stringify(res));
+        return res;
       })
-      .catch(err => console.log(err));
+      .catch((result) => {
+        result.json()
+          .then((err) => {
+            (result.status && err.message)
+              ? console.log(result.status + ": " + err.message)
+              : console.log('Что-то пошло не так');
+          });
+        return Promise.reject();
+      })
+      .finally(() => setIsLoading(false));
   }
 
   // добавление фильма в Сохраненные
@@ -54,7 +64,14 @@ function App() {
       .then((mov) => {
         savedMovies.push(mov);
       })
-      .catch(err => console.log(err));
+      .catch((result) => {
+        result.json()
+          .then((err) =>
+            (result.status && err.message)
+              ? console.log(result.status + ": " + err.message)
+              : console.log('Что-то пошло не так'));
+      })
+      .finally(() => setIsLoading(false))
   }
 
   // удаление фильма из Сохраненных
@@ -64,7 +81,14 @@ function App() {
       .then(() => {
         setSavedMovies(savedMovies.filter((el) => el._id !== cardId));
       })
-      .catch(err => console.log(err));
+      .catch((result) => {
+        result.json()
+          .then((err) =>
+            (result.status && err.message)
+              ? console.log(result.status + ": " + err.message)
+              : console.log('Что-то пошло не так'));
+      })
+      .finally(() => setIsLoading(false));
   }
 
   // получение данных пользователя и сохраненных фильмов
@@ -114,7 +138,7 @@ function App() {
     setErrorMessage("");
     return auth
       .register(password, email, name)
-      .then((res) => {
+      .then(() => {
         return setIsLoggedIn(true);
       })
       .catch((result) => {

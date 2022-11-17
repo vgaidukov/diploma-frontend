@@ -20,6 +20,7 @@ function Movies({
   const [isLoading, setIsLoading] = useState(preloader);
   const [isFilterOn, setIsFilterOn] = useState(false);
   const [wasSearched, setWasSearched] = useState(false);
+  const [error, setError] = useState(false);
   const { values, handleChange, setValues } = useForm({});
 
   // установка и сброс полей формы
@@ -71,8 +72,14 @@ function Movies({
     setIsLoading(true);
     if (!localStorage.getItem("allMovies")) {
       getBeatMovies()
-        .then(() => handleSearchMovies())
-        .catch((err) => console.log(err));
+        .then((res) => {
+          setError(false);
+          res && handleSearchMovies()
+        })
+        .catch(() => {
+          setError(true);
+        })
+        .finally(() => setIsLoading(false));
     } else {
       handleSearchMovies();
     }
@@ -90,6 +97,7 @@ function Movies({
       : setIsFilterOn(false);
     localStorage.getItem("moviesResult") && setMovies(JSON.parse(localStorage.getItem("moviesResult")));
     setForm();
+    setError(false);
   }, []);
 
   return (
@@ -108,14 +116,16 @@ function Movies({
         isLoading={isLoading}
       >
         <div className="movies-cards-empty__text">
-          <p className="movies__inform">{
-            !wasSearched
-              ? "Здесь будут результаты поиска"
-              : "Ничего не найдено."
+          <p className={`movies__inform ${error && "movies__inform_error"}`}>{
+            !error
+              ? (!wasSearched)
+                ? "Здесь будут результаты поиска"
+                : "Ничего не найдено."
+              : "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           }
           </p>
           <button
-            className={`button movies-cards-empty__button ${!wasSearched && "hidden"}`}
+            className={`button movies-cards-empty__button ${(!wasSearched || error) && "hidden"}`}
             type="button"
             onClick={resetToDefault}
           >
