@@ -1,3 +1,5 @@
+import { URL_IMG_MOVIE } from "../constants/constants";
+
 class MainApi {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -53,9 +55,9 @@ class MainApi {
         duration: data.duration,
         year: data.year,
         description: data.description,
-        image: "https://api.nomoreparties.co" + data.image.url,
+        image: URL_IMG_MOVIE + data.image.url,
         trailerLink: data.trailerLink,
-        thumbnail: "https://api.nomoreparties.co" + data.image.formats.thumbnail.url,
+        thumbnail: URL_IMG_MOVIE + data.image.formats.thumbnail.url,
         id: data.id,
         nameRU: data.nameRU,
         nameEN: data.nameEN
@@ -84,7 +86,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  // baseUrl: 'https://api.movies-vg.nomoredomains.icu',
+  // baseUrl: 'https://api.movies-vg.nomoredomains.icu'
   baseUrl: 'http://localhost:3030',
 });
 

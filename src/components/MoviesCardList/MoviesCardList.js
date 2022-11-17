@@ -6,6 +6,17 @@ import "../Hidden/Hidden.css";
 import { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
+import {
+  MOVIES_START_5,
+  MOVIES_START_8,
+  MOVIES_START_12,
+  MOVIES_ADD_2,
+  MOVIES_ADD_3,
+  TABLET_580,
+  DESKTOP_995,
+  SHORT_FILM
+} from "../../constants/constants";
+
 function MoviesCardList({
   movies,
   isFilterOn,
@@ -67,25 +78,25 @@ function MoviesCardList({
   // в зависимости от ширины экрана
   useEffect(() => {
     switch (true) {
-      case (windowWidth < 580):
+      case (windowWidth < TABLET_580):
         setCardsToShow({
           ...cardsToShow,
-          current: setNumberToShow(5, 2),
-          add: 2,
+          current: setNumberToShow(MOVIES_START_5, MOVIES_ADD_2),
+          add: MOVIES_ADD_2,
         })
         break;
-      case (windowWidth < 995):
+      case (windowWidth < DESKTOP_995):
         setCardsToShow({
           ...cardsToShow,
-          current: setNumberToShow(8, 2),
-          add: 2,
+          current: setNumberToShow(MOVIES_START_8, MOVIES_ADD_2),
+          add: MOVIES_ADD_2,
         })
         break;
       default:
         setCardsToShow({
           ...cardsToShow,
-          current: setNumberToShow(12, 3),
-          add: 3,
+          current: setNumberToShow(MOVIES_START_12, MOVIES_ADD_3),
+          add: MOVIES_ADD_3,
         })
     }
   }, [windowWidth]);
@@ -96,7 +107,7 @@ function MoviesCardList({
     setMoviesShown([]);
     showAllList && setCardsToShow({ current: movies.length })
     isFilterOn
-      ? setMoviesFiltered(movies.filter((element) => element.duration <= 40))
+      ? setMoviesFiltered(movies.filter((element) => element.duration <= SHORT_FILM))
       : setMoviesFiltered(movies);
 
     window.addEventListener("resize", getWindowWidth);

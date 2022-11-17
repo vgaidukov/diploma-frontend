@@ -2,7 +2,8 @@ import "./MoviesCard.css";
 import "../Button/Button.css";
 
 import { useEffect, useState, useContext } from "react";
-import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { URL_IMG_MOVIE } from "../../constants/constants";
 
 import moviesCardDelete from "../../images/movies-card-delete.svg";
 import moviesCardMark from "../../images/movies-card-mark.svg";
@@ -99,7 +100,7 @@ function MoviesCard({
       <div className="movie-card__image-container" >
         <img
           className="movie-card__image"
-          src={`${saveButton ? "https://api.nomoreparties.co/" + movie.image.url : movie.image}`}
+          src={`${saveButton ? URL_IMG_MOVIE + movie.image.url : movie.image}`}
           alt={movie.nameEN}
         />
       </div >
