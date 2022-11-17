@@ -1,8 +1,8 @@
 export const EMAIL_PATTERN = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$";
 export const NAME_PATTERN = "[a-zA-Zа-яёА-Яё0-9-\\s]+";
 
-export const URL_MAIN = 'http://localhost:3030';
-// export const URL_MAIN = 'https://api.movies-ialse.students.nomoredomains.rocks';
+// export const URL_MAIN = 'http://localhost:3030';
+export const URL_MAIN = 'https://api.movies-vg.nomoredomains.icu';
 export const URL_MOVIE = 'https://api.nomoreparties.co/beatfilm-movies';
 export const URL_IMG_MOVIE = "https://api.nomoreparties.co/";
 

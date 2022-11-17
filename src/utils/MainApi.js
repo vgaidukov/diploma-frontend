@@ -1,4 +1,4 @@
-import { URL_IMG_MOVIE } from "../constants/constants";
+import { URL_IMG_MOVIE, URL_MAIN } from "../constants/constants";
 
 class MainApi {
   constructor(options) {
@@ -86,8 +86,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  // baseUrl: 'https://api.movies-vg.nomoredomains.icu'
-  baseUrl: 'http://localhost:3030',
+  baseUrl: URL_MAIN,
+  // baseUrl: 'http://localhost:3030',
 });
 
 export default mainApi;

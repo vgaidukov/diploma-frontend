@@ -1,9 +1,7 @@
-// const BASE_URL = 'https://api.movies-vg.nomoredomains.icu';
-const BASE_URL = 'http://localhost:3030';
-// const BASE_URL = 'https://auth.nomoreparties.co';
+import { URL_MAIN } from "../constants/constants"
 
 export const register = (password, email, name) => {
-	return fetch(`${BASE_URL}/signup`, {
+	return fetch(`${URL_MAIN}/signup`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -18,7 +16,7 @@ export const register = (password, email, name) => {
 };
 
 export const authorize = (password, email) => {
-	return fetch(`${BASE_URL}/signin`, {
+	return fetch(`${URL_MAIN}/signin`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -33,7 +31,7 @@ export const authorize = (password, email) => {
 };
 
 export const validateToken = (token) => {
-	return fetch(`${BASE_URL}/users/me`, {
+	return fetch(`${URL_MAIN}/users/me`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
