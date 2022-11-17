@@ -12,6 +12,7 @@
   background-color: #222222;
   box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
   border-radius: 9px;
+  position: relative;
 }
 
 .search__line  {
@@ -67,6 +68,19 @@
 
 .search__input:focus {
   border-bottom: 1px #4285F4 solid;
+}
+
+.error-span {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 30%;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.11;
+  color: #EE3465;
 }
 
 .search__submit-button {
