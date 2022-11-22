@@ -1,5 +1,5 @@
 .page {
-  width: 100%;
+  width: 100vw;
   background-color:#202020;
   color: #FFF;
   display: flex;
