@@ -2,11 +2,11 @@ import "./App.css";
 
 import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { CurrentUserContext } from '../../context/CurrentUserContext';
-import * as auth from '../../utils/Auth';
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import * as auth from "../../utils/Auth";
 import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import Header from "../Header/Header";
 import HeaderButtonsLogged from "../HeaderButtonsLogged/HeaderButtonsLogged";
@@ -22,7 +22,6 @@ import NotFound from "../NotFound/NotFound";
 import Preloader from "../Preloader/Preloader";
 
 function App() {
-
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -35,7 +34,7 @@ function App() {
   // обработка ошибки от сервера в формах
   const handleErrorMessage = (message) => {
     return setErrorMessage(message);
-  }
+  };
 
   // получение фильмов с BeatMovies
   const getBeatMovies = () => {
@@ -46,16 +45,15 @@ function App() {
         return res;
       })
       .catch((result) => {
-        result.json()
-          .then((err) => {
-            (result.status && err.message)
-              ? console.log(result.status + ": " + err.message)
-              : console.log('Что-то пошло не так');
-          });
+        result.json().then((err) => {
+          result.status && err.message
+            ? console.log(result.status + ": " + err.message)
+            : console.log("Что-то пошло не так");
+        });
         return Promise.reject();
       })
       .finally(() => setIsLoading(false));
-  }
+  };
 
   // добавление фильма в Сохраненные
   const handleMovieSave = (movie) => {
@@ -65,14 +63,16 @@ function App() {
         savedMovies.push(mov);
       })
       .catch((result) => {
-        result.json()
+        result
+          .json()
           .then((err) =>
-            (result.status && err.message)
+            result.status && err.message
               ? console.log(result.status + ": " + err.message)
-              : console.log('Что-то пошло не так'));
+              : console.log("Что-то пошло не так")
+          );
       })
-      .finally(() => setIsLoading(false))
-  }
+      .finally(() => setIsLoading(false));
+  };
 
   // удаление фильма из Сохраненных
   const handleMovieDelete = (cardId) => {
@@ -82,38 +82,39 @@ function App() {
         setSavedMovies(savedMovies.filter((el) => el._id !== cardId));
       })
       .catch((result) => {
-        result.json()
+        result
+          .json()
           .then((err) =>
-            (result.status && err.message)
+            result.status && err.message
               ? console.log(result.status + ": " + err.message)
-              : console.log('Что-то пошло не так'));
+              : console.log("Что-то пошло не так")
+          );
       })
       .finally(() => setIsLoading(false));
-  }
+  };
 
   // получение данных пользователя и сохраненных фильмов
   const getInitialData = () => {
     setIsLoading(true);
-    return Promise.all([
-      mainApi.getUserInfo(),
-      mainApi.getMovies()
-    ])
+    return Promise.all([mainApi.getUserInfo(), mainApi.getMovies()])
       .then(([userInfo, movies]) => {
         // фильтр фильмов, сохранненых текущим пользователем
-        const moviesArray = movies.filter(el => el.owner === userInfo._id);
+        const moviesArray = movies.filter((el) => el.owner === userInfo._id);
         setCurrentUser(userInfo);
         setSavedMovies(moviesArray);
         return moviesArray;
       })
       .catch((result) => {
-        result.json()
+        result
+          .json()
           .then((err) =>
-            (result.status && err.message)
+            result.status && err.message
               ? console.log(result.status + ": " + err.message)
-              : console.log('Что-то пошло не так'));
+              : console.log("Что-то пошло не так")
+          );
       })
       .finally(() => setIsLoading(false));
-  }
+  };
 
   //аутентификация
   const onLogin = ({ password, email }) => {
@@ -127,9 +128,10 @@ function App() {
         }
       })
       .catch((result) => {
-        return Promise.reject(result)
-      })
-      .finally(() => setIsLoading(false));
+        setIsLoading(false);
+        return Promise.reject(result);
+      });
+    // .finally(() => setIsLoading(false));
   };
 
   // регистрация
@@ -142,32 +144,36 @@ function App() {
         return setIsLoggedIn(true);
       })
       .catch((result) => {
-        return Promise.reject(result)
-      })
-      .finally(() => setIsLoading(false));
+        setIsLoading(false);
+        return Promise.reject(result);
+      });
+    // .finally(() => setIsLoading(false));
   };
 
   // редактирование профиля
   const onEditProfile = (newUserInfo) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     setErrorMessage("");
     return mainApi
       .patchUserInfo(newUserInfo)
-      .then(updatedUserInfo => {
+      .then((updatedUserInfo) => {
         setCurrentUser(updatedUserInfo);
         console.log(updatedUserInfo);
       })
+      .then(() => {
+        setErrorMessage("Профиль успешно обновлен");
+      })
       .catch((result) => {
-        return Promise.reject(result)
+        return Promise.reject(result);
       })
       .finally(() => setIsLoading(false));
-  }
+  };
 
   // очистка хранилища и перенаправление на главную страницу
   const onSignOut = () => {
     localStorage.clear();
     setIsLoggedIn(false);
-    history.push('/');
+    history.push("/");
   };
 
   // авторизация
@@ -180,16 +186,16 @@ function App() {
         }
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   // проверка токена и получение начальных данных
   useEffect(() => {
     setIsLoading(true);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       authorize(token)
         .then(getInitialData())
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
         .finally(() => {
           setIsLoading(false);
           setIsChecked(true);
@@ -203,16 +209,11 @@ function App() {
   return (
     <CurrentUserContext.Provider value={{ currentUser, savedMovies }}>
       <div className="page">
-
         <Switch>
-
-          {isLoggedIn ?
-            <ProtectedRoute
-              exact path="/movies"
-              isLoggedIn={isLoggedIn}
-            >
+          {isLoggedIn ? (
+            <ProtectedRoute exact path="/movies" isLoggedIn={isLoggedIn}>
               <div className="page__container">
-                <Header >
+                <Header>
                   <HeaderButtonsLogged />
                 </Header>
                 <Movies
@@ -224,14 +225,12 @@ function App() {
               </div>
               <Footer />
             </ProtectedRoute>
-            : !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
-          }
+          ) : (
+            !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
+          )}
 
-          {isLoggedIn ?
-            <ProtectedRoute
-              exact path="/saved-movies"
-              isLoggedIn={isLoggedIn}
-            >
+          {isLoggedIn ? (
+            <ProtectedRoute exact path="/saved-movies" isLoggedIn={isLoggedIn}>
               <div className="page__container">
                 <Header>
                   <HeaderButtonsLogged />
@@ -244,13 +243,11 @@ function App() {
               </div>
               <Footer />
             </ProtectedRoute>
-            : !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
-          }
-          {isLoggedIn ?
-            <ProtectedRoute
-              exact path="/profile"
-              isLoggedIn={isLoggedIn}
-            >
+          ) : (
+            !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
+          )}
+          {isLoggedIn ? (
+            <ProtectedRoute exact path="/profile" isLoggedIn={isLoggedIn}>
               <div className="page__container">
                 <Header>
                   <HeaderButtonsLogged />
@@ -265,8 +262,9 @@ function App() {
               </div>
               <Footer />
             </ProtectedRoute>
-            : !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
-          }
+          ) : (
+            !isChecked && <Preloader isLoading={isLoading} fullsize={true} />
+          )}
           <Route exact path="/">
             <div className="page__container">
               <Header isMainPage={true}>
@@ -278,10 +276,9 @@ function App() {
           </Route>
 
           <Route exact path="/signup">
-            {isLoggedIn
-              ?
+            {isLoggedIn ? (
               <Redirect to="/movies" />
-              :
+            ) : (
               <div className="page__container page__container_not-logged">
                 <Header withoutPadding={true} />
                 <Register
@@ -291,14 +288,13 @@ function App() {
                   handleErrorMessage={handleErrorMessage}
                 />
               </div>
-            }
+            )}
           </Route>
 
-          < Route exact path="/login">
-            {isLoggedIn
-              ?
+          <Route exact path="/login">
+            {isLoggedIn ? (
               <Redirect to="/movies" />
-              :
+            ) : (
               <div className="page__container page__container_not-logged">
                 <Header withoutPadding={true} />
                 <Login
@@ -308,22 +304,15 @@ function App() {
                   handleErrorMessage={handleErrorMessage}
                 />
               </div>
-            }
+            )}
           </Route>
 
           <Route path="/*">
-            {!isLoggedIn
-              ?
-              <Redirect to="/" />
-              :
-              <NotFound />
-            }
+            {!isLoggedIn ? <Redirect to="/" /> : <NotFound />}
           </Route>
-
         </Switch>
       </div>
-    </CurrentUserContext.Provider >
-
+    </CurrentUserContext.Provider>
   );
 }
 
