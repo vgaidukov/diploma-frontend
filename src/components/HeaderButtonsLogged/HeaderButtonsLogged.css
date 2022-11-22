@@ -66,7 +66,7 @@
 }
 
 .header-logged-buttons__profile-pictogram {
-  
+
 }
 
 @media screen and (max-width: 768.98px) {
@@ -169,9 +169,15 @@
   .header-logged-buttons__button_active {
     border-bottom: 2px #fff solid;
   }
-  
+
   .header-logged-buttons__button_main{
     display: block;
+  }
+}
+
+@media screen and (max-width: 768.98px) and (orientation: landscape){
+  .header-logged-buttons__menu {
+    padding-top: 30px;
   }
 }
 
@@ -193,7 +199,7 @@
     width: 100%;
     right: -100%;
   }
-  
+
   .header-logged-buttons__menu_active{
     right: 0;
   }
