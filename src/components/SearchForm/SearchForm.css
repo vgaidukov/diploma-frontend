@@ -143,11 +143,11 @@
   }
 
   .search__icon {
-    /* display: none; */
+     /*display: none;*/
   }
 
   .search__input {
-    padding: 0 19px;
+    /*padding: 0 19px;*/
     font-size: 18px;
     line-height: 1.11;
   }

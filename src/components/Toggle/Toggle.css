@@ -1,5 +1,5 @@
 .toggle {
-  position: relative; 
+  position: relative;
 }
 .toggle-checkbox {
   position: absolute;
@@ -7,19 +7,20 @@
   pointer-events: none;
 }
 .toggle-label {
-  display: flex; 
-  overflow: hidden; 
+  display: flex;
+  overflow: hidden;
   cursor: pointer;
   border-radius: 20px;
   background-color: #505050;
 }
 
 .toggle-inner {
-  display: flex; 
+  display: flex;
   width: 34px;
   height: 14px;
   background-color: #3DDC84;
   opacity: 0;
+  border-radius: 20px;
   transition: 0.2s ease-in 0.1s;
 }
 
@@ -28,21 +29,21 @@
 }
 
 .toggle-slider {
-  display: flex; 
-  width: 10px; 
+  display: flex;
+  width: 10px;
   height: 10px;
   margin: 2px;
   background: #fff;
-  position: absolute; 
-  top: 0; 
+  position: absolute;
+  top: 0;
   bottom: 0;
   right: 20px;
   border-radius: 50%;
-  transition: all 0.2s ease-in 0s; 
+  transition: all 0.2s ease-in 0s;
 }
 .toggle-checkbox:checked + .toggle-label .toggle-inner {
   opacity: 1;
 }
 .toggle-checkbox:checked + .toggle-label .toggle-slider {
-  right: 0px; 
+  right: 0px;
 }
