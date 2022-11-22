@@ -1,24 +1,24 @@
-import '../Link/Link.css'
-import '../Button/Button.css'
-import './Profile.css'
+import "../Link/Link.css";
+import "../Button/Button.css";
+import "./Profile.css";
 
-import { useEffect, useContext } from 'react';
-import { useForm } from '../../hooks/useForm';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
-import { EMAIL_PATTERN } from '../../constants/constants';
-import { NAME_PATTERN } from '../../constants/constants';
+import { useEffect, useContext } from "react";
+import { useForm } from "../../hooks/useForm";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { EMAIL_PATTERN } from "../../constants/constants";
+import { NAME_PATTERN } from "../../constants/constants";
 
-import Form from '../Form/Form'
-import Label from '../Label/Label'
-import Input from '../Input/Input'
-import Preloader from '../Preloader/Preloader';
+import Form from "../Form/Form";
+import Label from "../Label/Label";
+import Input from "../Input/Input";
+import Preloader from "../Preloader/Preloader";
 
 function Profile({
   onEditProfile,
   isLoading,
   onSignOut,
   errorMessage,
-  handleErrorMessage
+  handleErrorMessage,
 }) {
   const { values, handleChange, setValues, isValid, setIsValid } = useForm({});
   const { currentUser } = useContext(CurrentUserContext);
@@ -27,23 +27,30 @@ function Profile({
     e.preventDefault();
     onEditProfile({
       name: values.name,
-      email: values.email
+      email: values.email,
     })
       .then(() => setIsValid(false))
       .catch((result) => {
-        result.json()
-          .then((err) =>
-            (result.status && err.message)
-              ? console.log(result.status + ": " + err.message)
-              : console.log('Что-то пошло не так'));
-      })
-  }
+        result
+          .json()
+          .then((err) => {
+            if (result.status && err.message) {
+              handleErrorMessage(err.message);
+              console.log(result.status + ": " + err.message);
+            } else {
+              handleErrorMessage("Что-то пошло не так");
+              console.log("Что-то пошло не так");
+            }
+          })
+          .catch((err) => console.log(err));
+      });
+  };
 
   useEffect(() => {
     setValues({
       name: currentUser.name,
-      email: currentUser.email
-    })
+      email: currentUser.email,
+    });
   }, [currentUser]);
 
   useEffect(() => {
@@ -53,12 +60,13 @@ function Profile({
   return (
     <section className="profile">
       <Preloader isLoading={isLoading} />
-      <div className={`profile__container ${isLoading && "profile__container_hidden"}`}>
+      <div
+        className={`profile__container ${
+          isLoading && "profile__container_hidden"
+        }`}
+      >
         <h2 className="profile__title">Привет, {currentUser.name}!</h2>
-        <Form
-          className={"profile form"}
-          onSubmit={submitButtonHandler}
-        >
+        <Form className={"profile form"} onSubmit={submitButtonHandler}>
           <Label className="profile ">
             Имя
             <Input
@@ -89,30 +97,34 @@ function Profile({
               required={true}
               autocomplete="off"
               pattern={EMAIL_PATTERN}
-
             />
           </Label>
-          <div className="profile__error-container">
-            <p className="profile__error">
-              {errorMessage}
-            </p>
+          <div
+            className={`profile__error-container ${
+              !isValid && "profile__error-container_success"
+            }`}
+          >
+            <p className="profile__error">{errorMessage}</p>
           </div>
           <button
             className={`button profile__submit-button`}
             type="submit"
-            disabled={!(isValid
-              && (currentUser.email !== values.email
-                || currentUser.name !== values.name))}
-          >
-            {!isLoading
-              ? "Редактировать"
-              : "Сохранение..."
+            disabled={
+              !(
+                isValid &&
+                (currentUser.email !== values.email ||
+                  currentUser.name !== values.name)
+              )
             }
+          >
+            {!isLoading ? "Редактировать" : "Сохранение..."}
           </button>
         </Form>
-        <button className="button profile__exit-button" onClick={onSignOut}>Выйти из аккаунта</button>
+        <button className="button profile__exit-button" onClick={onSignOut}>
+          Выйти из аккаунта
+        </button>
       </div>
-    </section >
+    </section>
   );
 }
 
