@@ -1,0 +1,229 @@
+.header-logged-buttons {
+  display: flex;
+}
+
+.header-logged-buttons__menu {
+  display: flex;
+  align-items: center;
+
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.29;
+}
+
+.header-logged-buttons__burger {
+  display: none;
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
+}
+
+.header-logged-buttons__burger:hover {
+  opacity: .6;
+}
+
+.header-logged-buttons__button {
+
+}
+
+.header-logged-buttons__button_active {
+  font-weight: 500;
+}
+
+.header-logged-buttons__button_main{
+  display: none;
+}
+
+.header-logged-buttons__button_movies {
+
+}
+
+.header-logged-buttons__button_saved-movies {
+  margin: 0 70px 0 20px;
+}
+
+.header-logged-buttons__button_profile {
+  display: flex;
+  align-items: center;
+
+  font-size: 13px;
+  line-height: 12px;
+}
+
+.header-logged-buttons__profile-text {
+  margin: 0;
+}
+
+.header-logged-buttons__pictogram-background {
+  margin-left: 7px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #313131;
+  border-radius: 50%;
+}
+
+.header-logged-buttons__profile-pictogram {
+  
+}
+
+@media screen and (max-width: 768.98px) {
+  .header-logged-buttons__menu {
+    display: flex;
+    padding-top: 160px;
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    width: 67.7%;
+    top: 0;
+    right: -70%;
+    bottom: 0;
+    background-color: #222222;
+    z-index: 2;
+    transition: all .4s ease-in-out 0s;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .header-logged-buttons__menu_active{
+    right: 0;
+  }
+
+  .header-logged-buttons__burger {
+    display: flex;
+    position: relative;
+    width: 28px;
+    height: 23px;
+    z-index: 3;
+    cursor: pointer;
+  }
+
+  .header-logged-buttons__burger_active {
+    position: fixed;
+    top:25.5px;
+    right: 30px;
+  }
+
+  .header-logged-buttons__span {
+    position: absolute;
+    background-color: #FFFFFF;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    transition: all .3s ease .1s;
+  }
+
+  .header-logged-buttons__burger:before,
+  .header-logged-buttons__burger:after {
+    content: "";
+    background-color: #FFFFFF;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    right: 0;
+    transition: all .3s ease .1s;
+  }
+
+  .header-logged-buttons__burger:before {
+    top: 0;
+  }
+
+  .header-logged-buttons__burger:after {
+    bottom: 0;
+  }
+
+  .header-logged-buttons__burger_active:before {
+    transform: rotate(45deg);
+    top: 10px;
+    width: 22px;
+  }
+
+  .header-logged-buttons__burger_active:after {
+    transform: rotate(-45deg);
+    bottom: 10px;
+    width: 22px;
+  }
+
+  .header-logged-buttons__burger_active .header-logged-buttons__span {
+   transform: scale(0);
+  }
+
+  .header-logged-buttons__button_saved-movies {
+    margin: 0;
+  }
+
+  .header-logged-buttons__button {
+    margin-bottom: 28px;
+  }
+
+  .header-logged-buttons__button:last-of-type {
+    margin-top: auto;
+    margin-bottom: 90px;
+  }
+
+  .header-logged-buttons__button_active {
+    border-bottom: 2px #fff solid;
+  }
+  
+  .header-logged-buttons__button_main{
+    display: block;
+  }
+}
+
+@media screen and (max-width: 619.98px) {
+  .header-logged-buttons__burger {
+    width: 22px;
+    height: 20.5px;
+    right: 8px;
+  }
+
+  .header-logged-buttons__burger_active {
+    position: fixed;
+    top: 27px;
+    right: 22px;
+  }
+
+  .header-logged-buttons__menu {
+    padding-top: 144px;
+    width: 100%;
+    right: -100%;
+  }
+  
+  .header-logged-buttons__menu_active{
+    right: 0;
+  }
+
+  .header-logged-buttons__button {
+    padding-bottom: 6px;
+    box-sizing: border-box;
+    margin-bottom: 18px;
+  }
+
+  .header-logged-buttons__button:last-of-type {
+    margin-top: auto;
+    margin-bottom: 44px;
+  }
+
+  .header-logged-buttons__span {
+    top: 9px;
+    height: 2.5px;
+  }
+
+  .header-logged-buttons__burger:before,
+  .header-logged-buttons__burger:after {
+    height: 2.5px;
+  }
+
+  .header-logged-buttons__burger_active:before {
+    top: 9px;
+  }
+
+  .header-logged-buttons__burger_active:after {
+    bottom: 9px;
+  }
+}
