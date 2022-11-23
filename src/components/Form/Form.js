@@ -1,10 +1,13 @@
 import "./Form.css";
 
-function Form({ children, className }) {
+function Form({ children, className, onSubmit }) {
   return (
-    <form className={`form form_${className}`}>
+    <form
+      className={`form form_${className}`}
+      onSubmit={onSubmit}
+    >
       {children}
-    </form>
+    </form >
   );
 }
 

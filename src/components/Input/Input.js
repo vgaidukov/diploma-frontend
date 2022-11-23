@@ -1,19 +1,37 @@
 import "./Input.css";
 
 function Input({
-  placeholder,
-  className,
-  disabled,
+  id,
+  name,
   type,
-  minLength
+  className,
+  placeholder,
+  value,
+  onChange,
+  minLength,
+  maxLength,
+  disabled,
+  required,
+  // isValid,
+  autocomplete,
+  pattern
 }) {
+
   return (
     <input
+      id={id}
+      name={name}
+      type={type}
       className={`input input_${className}`}
       placeholder={placeholder}
-      type={type}
-      disabled={disabled}
+      value={value || ""}
+      onChange={onChange}
       minLength={minLength}
+      maxLength={maxLength}
+      disabled={disabled}
+      required={required}
+      autoComplete={autocomplete}
+      pattern={pattern}
     />
   );
 }

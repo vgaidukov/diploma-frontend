@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "../Link/Link.css";
 import "./HeaderButtonsLogged.css";
@@ -10,31 +10,38 @@ function HeaderButtonsLogged() {
 
   const handleBurgerClick = () => {
     setIsBurgerOpened(!isBurgerOpened);
-    console.log(isBurgerOpened);
-  }
+  };
 
   const handleLinkClick = () => {
     if (isBurgerOpened) {
       handleBurgerClick();
     }
-    return;
-  }
+  };
 
   return (
     <div className="header-logged-buttons">
       <div
-        className={`header-logged-buttons__burger header-logged-buttons__burger${isBurgerOpened ? "_active" : ""}`}
-        onClick={handleBurgerClick}>
+        className={`header-logged-buttons__burger header-logged-buttons__burger${
+          isBurgerOpened ? "_active" : ""
+        }`}
+        onClick={handleBurgerClick}
+      >
         <span className="header-logged-buttons__span"></span>
       </div>
-      <nav className={`header-logged-buttons__menu header-logged-buttons__menu${isBurgerOpened ? "_active" : ""}`}>
-        <Link
+      <nav
+        className={`header-logged-buttons__menu header-logged-buttons__menu${
+          isBurgerOpened ? "_active" : ""
+        }`}
+      >
+        <NavLink
           className="header-logged-buttons__button header-logged-buttons__button_main link"
+          activeClassName="header-logged-buttons__button_active"
+          exact
           to="/"
           onClick={handleLinkClick}
         >
           Главная
-        </Link>
+        </NavLink>
         <NavLink
           className="header-logged-buttons__button header-logged-buttons__button_movies link"
           activeClassName="header-logged-buttons__button_active"

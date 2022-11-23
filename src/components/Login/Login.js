@@ -1,42 +1,91 @@
 import { useHistory } from "react-router-dom";
+import { useForm } from '../../hooks/useForm';
+import { EMAIL_PATTERN } from '../../constants/constants';
 
 import EntranceForm from '../EntranceForm/EntranceForm'
 import Label from '../Label/Label'
 import Input from '../Input/Input'
 import Span from '../Span/Span'
 
-function Login() {
+function Login({
+  onLogin,
+  isLoading,
+  errorMessage,
+  handleErrorMessage
+}) {
   const history = useHistory();
+  const { values, handleChange, errors, isValid, resetForm } = useForm({});
+  const email = values.email || "";
+  const password = values.password || "";
 
   const submitButtonHandler = (e) => {
     e.preventDefault();
-    history.push('/movies')
+    onLogin({ password, email })
+      .then(() => {
+        resetForm();
+        history.push("/movies");
+      })
+      .catch((result) => {
+        result.json()
+          .then((err) => {
+            if (result.status && err.message) {
+              handleErrorMessage(err.message)
+              console.log(result.status + ": " + err.message)
+            } else {
+              handleErrorMessage("Что-то пошло не так")
+              console.log("Что-то пошло не так")
+            }
+          });
+      })
   }
 
   return (
     <EntranceForm
       title="Рады видеть!"
+      isLoading={isLoading}
       submitButtonName="Войти"
+      submitButtonNameOnLoading="Вход ..."
+      onSubmit={submitButtonHandler}
+      isValid={isValid}
+
       text="Еще не зарегистрированы?"
       linkText="Регистрация"
-      submitButtonHandler={submitButtonHandler}
       linkTo="/signup"
+
+      errorMessage={errorMessage}
+      handleErrorMessage={handleErrorMessage}
     >
       <Label className={"entrance"}>
         E-mail
         <Input
-          className="entrance"
+          id="email"
+          name="email"
           type="email"
+          className="entrance"
+          placeholder=""
+          value={values.email}
+          onChange={handleChange}
+          disabled={false}
+          required={true}
+          pattern={EMAIL_PATTERN}
         />
-        <Span />
+        <Span message={errors.email} />
       </Label>
       <Label className={"entrance"}>
         Пароль
         <Input
-          className="entrance"
+          id="password"
+          name="password"
           type="password"
+          className="entrance"
+          placeholder=""
+          value={values.password}
+          onChange={handleChange}
+          minLength="8"
+          disabled={false}
+          required={true}
         />
-        <Span />
+        <Span message={errors.password} />
       </Label>
     </EntranceForm>
   );

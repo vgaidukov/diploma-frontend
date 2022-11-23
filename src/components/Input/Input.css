@@ -14,19 +14,25 @@
   min-height: 30px;
   justify-content: flex-end;
   flex: 1 1 auto;
-  outline: 0 #4285F4 solid;
+  text-align: right;
+  outline: none;
+  border: 0 #4285F4 solid;
   border-radius: 9px;
   transition: padding 300ms ease-out;
-  text-align: right;
 }
 
 .input_profile::placeholder {
   color: #fff;
 }
 
-.input_profile_active {
-  outline-width: 1px;
+.input_profile:focus {
+  border-width: 1px;
   padding-right: 5px;
+  /* outline: 0 #4285F4 solid; */
+}
+
+.input_profile:invalid {
+  border: 1px #EE3465 solid;
 }
 
 .input_entrance {
@@ -35,7 +41,8 @@
   align-items: center;
   outline: none;
   border-bottom: 1px #424242 solid;
-  
+  border-radius: 0;
+
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -45,6 +52,7 @@
 .input_entrance:focus {
   border-color: #4285F4;
 }
+
 .input_entrance:invalid {
   color: #EE3465;
 }
