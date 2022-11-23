@@ -15,7 +15,8 @@
   justify-content: flex-end;
   flex: 1 1 auto;
   text-align: right;
-  outline: 0 #4285F4 solid;
+  outline: none;
+  border: 0 #4285F4 solid;
   border-radius: 9px;
   transition: padding 300ms ease-out;
 }
@@ -25,13 +26,13 @@
 }
 
 .input_profile:focus {
-  outline-width: 1px;
+  border-width: 1px;
   padding-right: 5px;
   /* outline: 0 #4285F4 solid; */
 }
 
 .input_profile:invalid {
-  outline: 1px #EE3465 solid;
+  border: 1px #EE3465 solid;
 }
 
 .input_entrance {
@@ -40,7 +41,8 @@
   align-items: center;
   outline: none;
   border-bottom: 1px #424242 solid;
-  
+  border-radius: 0;
+
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
