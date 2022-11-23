@@ -152,6 +152,10 @@
     line-height: 1.11;
   }
 
+  .search__input::placeholder {
+    font-size: 14px;
+  }
+
   .search__filter {
     border: none;
     position: absolute;
