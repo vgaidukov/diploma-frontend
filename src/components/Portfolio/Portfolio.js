@@ -33,7 +33,7 @@ function Portfolio() {
           <li className="portfolio__item">
             <a
               className="link portfolio__link"
-              href="https://vgaidukov.students.nomoredomains.icu/"
+              href="https://vgaidukov.github.io/mesto/"
               target="_blank"
               rel="noreferrer"
             >
