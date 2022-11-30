@@ -40,3 +40,7 @@ ____
 
 #### Бэкенд
 `Node.js` `Express.js` `mongoose` `MongoDB`  
+
+## Preview :
+
+![Preview](src/images/preview.png)
