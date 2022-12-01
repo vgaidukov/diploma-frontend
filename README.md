@@ -1,4 +1,4 @@
-# Movies Explorer APP  
+# Movies App  
 
 - Frontend: https://movies-vg.nomoredomains.icu  
 - Backend: https://api.movies-vg.nomoredomains.icu  
